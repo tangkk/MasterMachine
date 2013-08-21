@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9034291417C47C370008032B /* Go.png in Resources */ = {isa = PBXBuildFile; fileRef = 9034291317C47C370008032B /* Go.png */; };
+		90368C0917C3148600654EA3 /* Triangle.png in Resources */ = {isa = PBXBuildFile; fileRef = 90368C0817C3148600654EA3 /* Triangle.png */; };
+		903ACC4E17C33020002FA59B /* Slider.png in Resources */ = {isa = PBXBuildFile; fileRef = 903ACC4D17C33020002FA59B /* Slider.png */; };
+		903ACC5117C3676E002FA59B /* PickViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 903ACC5017C3676E002FA59B /* PickViewController.m */; };
+		9080F51E17C20B2C00A37E26 /* test.png in Resources */ = {isa = PBXBuildFile; fileRef = 9080F51D17C20B2C00A37E26 /* test.png */; };
+		9080F52017C20B8400A37E26 /* test@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9080F51F17C20B8400A37E26 /* test@2x.png */; };
+		9080F52C17C21D1700A37E26 /* ScaleButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 9080F52B17C21D1700A37E26 /* ScaleButton.png */; };
+		9080F52E17C21D8000A37E26 /* Circle.png in Resources */ = {isa = PBXBuildFile; fileRef = 9080F52D17C21D8000A37E26 /* Circle.png */; };
 		90ADB12817C20A2E00463306 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90ADB12717C20A2E00463306 /* UIKit.framework */; };
 		90ADB12A17C20A2E00463306 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90ADB12917C20A2E00463306 /* Foundation.framework */; };
 		90ADB12C17C20A2E00463306 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90ADB12B17C20A2E00463306 /* CoreGraphics.framework */; };
@@ -18,9 +26,20 @@
 		90ADB13E17C20A2F00463306 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 90ADB13D17C20A2F00463306 /* Default-568h@2x.png */; };
 		90ADB14117C20A2F00463306 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 90ADB13F17C20A2F00463306 /* MainStoryboard.storyboard */; };
 		90ADB14417C20A2F00463306 /* MasterMachineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90ADB14317C20A2F00463306 /* MasterMachineViewController.m */; };
+		90F08AAE17C317E200A53704 /* Circle2.png in Resources */ = {isa = PBXBuildFile; fileRef = 90F08AAD17C317E200A53704 /* Circle2.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9034291317C47C370008032B /* Go.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Go.png; sourceTree = "<group>"; };
+		90368C0817C3148600654EA3 /* Triangle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Triangle.png; sourceTree = "<group>"; };
+		903ACC4C17C32B60002FA59B /* Definition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Definition.h; sourceTree = "<group>"; };
+		903ACC4D17C33020002FA59B /* Slider.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Slider.png; sourceTree = "<group>"; };
+		903ACC4F17C3676E002FA59B /* PickViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PickViewController.h; sourceTree = "<group>"; };
+		903ACC5017C3676E002FA59B /* PickViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PickViewController.m; sourceTree = "<group>"; };
+		9080F51D17C20B2C00A37E26 /* test.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = test.png; path = ../test.png; sourceTree = "<group>"; };
+		9080F51F17C20B8400A37E26 /* test@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "test@2x.png"; path = "../test@2x.png"; sourceTree = "<group>"; };
+		9080F52B17C21D1700A37E26 /* ScaleButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ScaleButton.png; sourceTree = "<group>"; };
+		9080F52D17C21D8000A37E26 /* Circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Circle.png; sourceTree = "<group>"; };
 		90ADB12417C20A2E00463306 /* MasterMachine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MasterMachine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		90ADB12717C20A2E00463306 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		90ADB12917C20A2E00463306 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -37,6 +56,7 @@
 		90ADB14017C20A2F00463306 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		90ADB14217C20A2F00463306 /* MasterMachineViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MasterMachineViewController.h; sourceTree = "<group>"; };
 		90ADB14317C20A2F00463306 /* MasterMachineViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MasterMachineViewController.m; sourceTree = "<group>"; };
+		90F08AAD17C317E200A53704 /* Circle2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Circle2.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,11 +103,14 @@
 		90ADB12D17C20A2E00463306 /* MasterMachine */ = {
 			isa = PBXGroup;
 			children = (
+				90ADB13F17C20A2F00463306 /* MainStoryboard.storyboard */,
+				903ACC4C17C32B60002FA59B /* Definition.h */,
 				90ADB13617C20A2F00463306 /* MasterMachineAppDelegate.h */,
 				90ADB13717C20A2F00463306 /* MasterMachineAppDelegate.m */,
-				90ADB13F17C20A2F00463306 /* MainStoryboard.storyboard */,
 				90ADB14217C20A2F00463306 /* MasterMachineViewController.h */,
 				90ADB14317C20A2F00463306 /* MasterMachineViewController.m */,
+				903ACC4F17C3676E002FA59B /* PickViewController.h */,
+				903ACC5017C3676E002FA59B /* PickViewController.m */,
 				90ADB12E17C20A2F00463306 /* Supporting Files */,
 			);
 			path = MasterMachine;
@@ -96,6 +119,14 @@
 		90ADB12E17C20A2F00463306 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				9034291317C47C370008032B /* Go.png */,
+				903ACC4D17C33020002FA59B /* Slider.png */,
+				90F08AAD17C317E200A53704 /* Circle2.png */,
+				90368C0817C3148600654EA3 /* Triangle.png */,
+				9080F52D17C21D8000A37E26 /* Circle.png */,
+				9080F52B17C21D1700A37E26 /* ScaleButton.png */,
+				9080F51F17C20B8400A37E26 /* test@2x.png */,
+				9080F51D17C20B2C00A37E26 /* test.png */,
 				90ADB12F17C20A2F00463306 /* MasterMachine-Info.plist */,
 				90ADB13017C20A2F00463306 /* InfoPlist.strings */,
 				90ADB13317C20A2F00463306 /* main.m */,
@@ -164,6 +195,14 @@
 				90ADB13C17C20A2F00463306 /* Default@2x.png in Resources */,
 				90ADB13E17C20A2F00463306 /* Default-568h@2x.png in Resources */,
 				90ADB14117C20A2F00463306 /* MainStoryboard.storyboard in Resources */,
+				9080F51E17C20B2C00A37E26 /* test.png in Resources */,
+				9080F52017C20B8400A37E26 /* test@2x.png in Resources */,
+				9080F52C17C21D1700A37E26 /* ScaleButton.png in Resources */,
+				9080F52E17C21D8000A37E26 /* Circle.png in Resources */,
+				90368C0917C3148600654EA3 /* Triangle.png in Resources */,
+				90F08AAE17C317E200A53704 /* Circle2.png in Resources */,
+				903ACC4E17C33020002FA59B /* Slider.png in Resources */,
+				9034291417C47C370008032B /* Go.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -177,6 +216,7 @@
 				90ADB13417C20A2F00463306 /* main.m in Sources */,
 				90ADB13817C20A2F00463306 /* MasterMachineAppDelegate.m in Sources */,
 				90ADB14417C20A2F00463306 /* MasterMachineViewController.m in Sources */,
+				903ACC5117C3676E002FA59B /* PickViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -301,6 +341,7 @@
 				90ADB14917C20A2F00463306 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

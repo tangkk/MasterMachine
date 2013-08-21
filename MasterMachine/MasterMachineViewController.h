@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PickViewController.h"
 
-@interface MasterMachineViewController : UIViewController
+@interface MasterMachineViewController : UIViewController <PickerDelegate>
 
 @end
