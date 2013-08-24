@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "PickViewController.h"
 
-@interface MasterMachineViewController : UIViewController <PickerDelegate>
+@interface MasterMachineViewController : UIViewController <PickerDelegate, NSNetServiceBrowserDelegate>
 
 @end

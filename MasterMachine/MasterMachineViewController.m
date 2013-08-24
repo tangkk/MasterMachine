@@ -9,6 +9,10 @@
 #import "MasterMachineViewController.h"
 #import "Definition.h"
 
+#import "PGMidi/PGMidi.h"
+#import "PGMidi/PGArc.h"
+#import "PGMidi/iOSVersionDetection.h"
+
 @interface MasterMachineViewController () {
     CGRect RectA;
     CGRect RectB;
@@ -61,6 +65,16 @@
 @property (strong, nonatomic) IBOutlet UIButton *InstrumentE;
 @property (strong, nonatomic) IBOutlet UIButton *InstrumentF;
 
+// Network Service Related Declaraion
+@property (strong, nonatomic) NSMutableArray *services;
+@property (strong, nonatomic) NSNetServiceBrowser *serviceBrowser;
+@property (readwrite) MIDINetworkSession *Session;
+@property (nonatomic, retain) NSTimer * rescanTimer;
+
+// Three main buttons
+@property (strong, nonatomic) IBOutlet UILabel *Host;
+
+
 @end
 
 @implementation MasterMachineViewController
@@ -69,6 +83,9 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    
+    [self configureNetworkSessionAndServiceBrowser];
+    self.rescanTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(scanPlayers) userInfo:nil repeats:YES];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -151,6 +168,7 @@ static void Slide (CGRect Rect, CGPoint currentPoint, UIImageView *ImageView) {
 }
 
 #pragma mark - Root and Scale Change
+
 - (IBAction)applyRootScaleChange:(id)sender {
 }
 
@@ -244,6 +262,7 @@ static void Slide (CGRect Rect, CGPoint currentPoint, UIImageView *ImageView) {
 
 
 #pragma mark - Loop and Score Selector
+
 - (IBAction)loopSelector:(id)sender {
     UIButton *Selector = (UIButton *)sender;
     [_LoopPicker passAccLabel:Selector.accessibilityLabel];
@@ -339,6 +358,74 @@ static void Slide (CGRect Rect, CGPoint currentPoint, UIImageView *ImageView) {
         }
         [_InstrumentPopOver dismissPopoverAnimated:YES];
     }
+}
+
+#pragma mark -  user Related functions
+- (void) addUser:(NSString *)Name {
+    
+}
+
+#pragma mark - network configuration
+- (void) configureNetworkSessionAndServiceBrowser {
+    // configure network session
+    _Session = [MIDINetworkSession defaultSession];
+    _Session.enabled = false;
+    _Session.connectionPolicy = MIDINetworkConnectionPolicy_Anyone;
+    
+    // configure service browser
+    self.services = [[NSMutableArray alloc] init];
+    self.serviceBrowser = [[NSNetServiceBrowser alloc] init];
+    [self.serviceBrowser setDelegate:self];
+    // starting scanning for services (won't stop until stop() is called)
+    [self.serviceBrowser searchForServicesOfType:MIDINetworkBonjourServiceType inDomain:@"local."];
+}
+
+- (void) netServiceBrowser:(NSNetServiceBrowser*)serviceBrowser didFindService:(NSNetService *)service moreComing:(BOOL)moreComing {
+    DSLog(@"service name: %@", service.name);
+    DSLog(@"service hostName: %@", service.hostName);
+    DSLog(@"service accessLabel: %@", service.accessibilityLabel);
+    [self.services addObject:service];
+    
+//    if ([service.name  isEqualToString:_Session.networkName]) {
+//        NSLog(@"Self Service!");
+//    }
+}
+
+- (void) netServiceBrowser:(NSNetServiceBrowser*)serviceBrowser didRemoveService:(NSNetService *)service moreComing:(BOOL)moreComing {
+    MIDINetworkHost *host = [MIDINetworkHost hostWithName:[service name] netService:service];
+    MIDINetworkConnection *connection = [MIDINetworkConnection connectionWithHost:host];
+    if (connection) {
+        [_Session removeConnection:connection]; // remove connection automatically no matter what
+    }
+    [self.services removeObject:service];
+}
+
+- (IBAction)Host:(id)sender {
+    _Session.enabled = !_Session.enabled;
+    if (_Session.enabled) {
+        _Host.textColor = [UIColor grayColor];
+    } else {
+        _Host.textColor = [UIColor whiteColor];
+    }
+}
+
+- (void)scanPlayers {
+    DSLog(@"scanPlayers...");
+    for (MIDINetworkConnection *conn in _Session.connections) {
+        NSString *PlayerName = conn.host.name;
+        NSLog(@"Player: %@", PlayerName);
+        
+        [self addUser:PlayerName];
+    }
+    [self listConnectedDevices];
+}
+
+- (void) listConnectedDevices {
+    NSLog(@"Connected to %u devices:", [_Session.connections count]);
+    for (MIDINetworkConnection *conn in _Session.connections) {
+        NSLog(@"name: %@", conn.host.name);
+    }
+    NSLog(@"\n");
 }
 
 @end

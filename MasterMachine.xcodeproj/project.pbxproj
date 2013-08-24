@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		900C10C317C4A4F400BE46AF /* PGMidi.mm in Sources */ = {isa = PBXBuildFile; fileRef = 900C10BE17C4A4F400BE46AF /* PGMidi.mm */; };
+		900C10C417C4A4F400BE46AF /* PGMidiAllSources.mm in Sources */ = {isa = PBXBuildFile; fileRef = 900C10C017C4A4F400BE46AF /* PGMidiAllSources.mm */; };
+		900C10C517C4A4F400BE46AF /* PGMidiFind.mm in Sources */ = {isa = PBXBuildFile; fileRef = 900C10C217C4A4F400BE46AF /* PGMidiFind.mm */; };
+		900C10C717C4A51F00BE46AF /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 900C10C617C4A51F00BE46AF /* CoreMIDI.framework */; };
+		900C10C917C4A52400BE46AF /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 900C10C817C4A52400BE46AF /* AVFoundation.framework */; };
+		900C10CB17C4A53800BE46AF /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 900C10CA17C4A53800BE46AF /* AudioToolbox.framework */; };
 		9034291417C47C370008032B /* Go.png in Resources */ = {isa = PBXBuildFile; fileRef = 9034291317C47C370008032B /* Go.png */; };
 		90368C0917C3148600654EA3 /* Triangle.png in Resources */ = {isa = PBXBuildFile; fileRef = 90368C0817C3148600654EA3 /* Triangle.png */; };
 		903ACC4E17C33020002FA59B /* Slider.png in Resources */ = {isa = PBXBuildFile; fileRef = 903ACC4D17C33020002FA59B /* Slider.png */; };
@@ -30,6 +36,17 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		900C10BB17C4A4F400BE46AF /* iOSVersionDetection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iOSVersionDetection.h; sourceTree = "<group>"; };
+		900C10BC17C4A4F400BE46AF /* PGArc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGArc.h; sourceTree = "<group>"; };
+		900C10BD17C4A4F400BE46AF /* PGMidi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGMidi.h; sourceTree = "<group>"; };
+		900C10BE17C4A4F400BE46AF /* PGMidi.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PGMidi.mm; sourceTree = "<group>"; };
+		900C10BF17C4A4F400BE46AF /* PGMidiAllSources.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGMidiAllSources.h; sourceTree = "<group>"; };
+		900C10C017C4A4F400BE46AF /* PGMidiAllSources.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PGMidiAllSources.mm; sourceTree = "<group>"; };
+		900C10C117C4A4F400BE46AF /* PGMidiFind.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGMidiFind.h; sourceTree = "<group>"; };
+		900C10C217C4A4F400BE46AF /* PGMidiFind.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PGMidiFind.mm; sourceTree = "<group>"; };
+		900C10C617C4A51F00BE46AF /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = System/Library/Frameworks/CoreMIDI.framework; sourceTree = SDKROOT; };
+		900C10C817C4A52400BE46AF /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		900C10CA17C4A53800BE46AF /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		9034291317C47C370008032B /* Go.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Go.png; sourceTree = "<group>"; };
 		90368C0817C3148600654EA3 /* Triangle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Triangle.png; sourceTree = "<group>"; };
 		903ACC4C17C32B60002FA59B /* Definition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Definition.h; sourceTree = "<group>"; };
@@ -64,6 +81,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				900C10CB17C4A53800BE46AF /* AudioToolbox.framework in Frameworks */,
+				900C10C917C4A52400BE46AF /* AVFoundation.framework in Frameworks */,
+				900C10C717C4A51F00BE46AF /* CoreMIDI.framework in Frameworks */,
 				90ADB12817C20A2E00463306 /* UIKit.framework in Frameworks */,
 				90ADB12A17C20A2E00463306 /* Foundation.framework in Frameworks */,
 				90ADB12C17C20A2E00463306 /* CoreGraphics.framework in Frameworks */,
@@ -73,9 +93,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		900C10BA17C4A4F400BE46AF /* PGMidi */ = {
+			isa = PBXGroup;
+			children = (
+				900C10BB17C4A4F400BE46AF /* iOSVersionDetection.h */,
+				900C10BC17C4A4F400BE46AF /* PGArc.h */,
+				900C10BD17C4A4F400BE46AF /* PGMidi.h */,
+				900C10BE17C4A4F400BE46AF /* PGMidi.mm */,
+				900C10BF17C4A4F400BE46AF /* PGMidiAllSources.h */,
+				900C10C017C4A4F400BE46AF /* PGMidiAllSources.mm */,
+				900C10C117C4A4F400BE46AF /* PGMidiFind.h */,
+				900C10C217C4A4F400BE46AF /* PGMidiFind.mm */,
+			);
+			name = PGMidi;
+			path = MasterMachine/PGMidi;
+			sourceTree = "<group>";
+		};
 		90ADB11B17C20A2E00463306 = {
 			isa = PBXGroup;
 			children = (
+				900C10BA17C4A4F400BE46AF /* PGMidi */,
 				90ADB12D17C20A2E00463306 /* MasterMachine */,
 				90ADB12617C20A2E00463306 /* Frameworks */,
 				90ADB12517C20A2E00463306 /* Products */,
@@ -93,6 +130,9 @@
 		90ADB12617C20A2E00463306 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				900C10CA17C4A53800BE46AF /* AudioToolbox.framework */,
+				900C10C817C4A52400BE46AF /* AVFoundation.framework */,
+				900C10C617C4A51F00BE46AF /* CoreMIDI.framework */,
 				90ADB12717C20A2E00463306 /* UIKit.framework */,
 				90ADB12917C20A2E00463306 /* Foundation.framework */,
 				90ADB12B17C20A2E00463306 /* CoreGraphics.framework */,
@@ -217,6 +257,9 @@
 				90ADB13817C20A2F00463306 /* MasterMachineAppDelegate.m in Sources */,
 				90ADB14417C20A2F00463306 /* MasterMachineViewController.m in Sources */,
 				903ACC5117C3676E002FA59B /* PickViewController.m in Sources */,
+				900C10C317C4A4F400BE46AF /* PGMidi.mm in Sources */,
+				900C10C417C4A4F400BE46AF /* PGMidiAllSources.mm in Sources */,
+				900C10C517C4A4F400BE46AF /* PGMidiFind.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
