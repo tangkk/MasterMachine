@@ -17,6 +17,13 @@
 		90368C0917C3148600654EA3 /* Triangle.png in Resources */ = {isa = PBXBuildFile; fileRef = 90368C0817C3148600654EA3 /* Triangle.png */; };
 		903ACC4E17C33020002FA59B /* Slider.png in Resources */ = {isa = PBXBuildFile; fileRef = 903ACC4D17C33020002FA59B /* Slider.png */; };
 		903ACC5117C3676E002FA59B /* PickViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 903ACC5017C3676E002FA59B /* PickViewController.m */; };
+		9080F44917CB0BEF00B72DD7 /* AssignmentTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 9080F43C17CB0BEF00B72DD7 /* AssignmentTable.m */; };
+		9080F44A17CB0BEF00B72DD7 /* Communicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 9080F43E17CB0BEF00B72DD7 /* Communicator.m */; };
+		9080F44B17CB0BEF00B72DD7 /* DirectoryWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 9080F44017CB0BEF00B72DD7 /* DirectoryWatcher.m */; };
+		9080F44C17CB0BEF00B72DD7 /* grooveTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9080F44217CB0BEF00B72DD7 /* grooveTableViewController.m */; };
+		9080F44D17CB0BEF00B72DD7 /* MIDINote.m in Sources */ = {isa = PBXBuildFile; fileRef = 9080F44417CB0BEF00B72DD7 /* MIDINote.m */; };
+		9080F44E17CB0BEF00B72DD7 /* NoteNumDict.m in Sources */ = {isa = PBXBuildFile; fileRef = 9080F44617CB0BEF00B72DD7 /* NoteNumDict.m */; };
+		9080F44F17CB0BEF00B72DD7 /* VirtualInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = 9080F44817CB0BEF00B72DD7 /* VirtualInstrument.m */; };
 		9080F51E17C20B2C00A37E26 /* test.png in Resources */ = {isa = PBXBuildFile; fileRef = 9080F51D17C20B2C00A37E26 /* test.png */; };
 		9080F52017C20B8400A37E26 /* test@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9080F51F17C20B8400A37E26 /* test@2x.png */; };
 		9080F52C17C21D1700A37E26 /* ScaleButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 9080F52B17C21D1700A37E26 /* ScaleButton.png */; };
@@ -53,6 +60,20 @@
 		903ACC4D17C33020002FA59B /* Slider.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Slider.png; sourceTree = "<group>"; };
 		903ACC4F17C3676E002FA59B /* PickViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PickViewController.h; sourceTree = "<group>"; };
 		903ACC5017C3676E002FA59B /* PickViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PickViewController.m; sourceTree = "<group>"; };
+		9080F43B17CB0BEF00B72DD7 /* AssignmentTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssignmentTable.h; sourceTree = "<group>"; };
+		9080F43C17CB0BEF00B72DD7 /* AssignmentTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AssignmentTable.m; sourceTree = "<group>"; };
+		9080F43D17CB0BEF00B72DD7 /* Communicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Communicator.h; sourceTree = "<group>"; };
+		9080F43E17CB0BEF00B72DD7 /* Communicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Communicator.m; sourceTree = "<group>"; };
+		9080F43F17CB0BEF00B72DD7 /* DirectoryWatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DirectoryWatcher.h; sourceTree = "<group>"; };
+		9080F44017CB0BEF00B72DD7 /* DirectoryWatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DirectoryWatcher.m; sourceTree = "<group>"; };
+		9080F44117CB0BEF00B72DD7 /* grooveTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = grooveTableViewController.h; sourceTree = "<group>"; };
+		9080F44217CB0BEF00B72DD7 /* grooveTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = grooveTableViewController.m; sourceTree = "<group>"; };
+		9080F44317CB0BEF00B72DD7 /* MIDINote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MIDINote.h; sourceTree = "<group>"; };
+		9080F44417CB0BEF00B72DD7 /* MIDINote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MIDINote.m; sourceTree = "<group>"; };
+		9080F44517CB0BEF00B72DD7 /* NoteNumDict.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoteNumDict.h; sourceTree = "<group>"; };
+		9080F44617CB0BEF00B72DD7 /* NoteNumDict.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoteNumDict.m; sourceTree = "<group>"; };
+		9080F44717CB0BEF00B72DD7 /* VirtualInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VirtualInstrument.h; sourceTree = "<group>"; };
+		9080F44817CB0BEF00B72DD7 /* VirtualInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VirtualInstrument.m; sourceTree = "<group>"; };
 		9080F51D17C20B2C00A37E26 /* test.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = test.png; path = ../test.png; sourceTree = "<group>"; };
 		9080F51F17C20B8400A37E26 /* test@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "test@2x.png"; path = "../test@2x.png"; sourceTree = "<group>"; };
 		9080F52B17C21D1700A37E26 /* ScaleButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ScaleButton.png; sourceTree = "<group>"; };
@@ -151,6 +172,20 @@
 				90ADB14317C20A2F00463306 /* MasterMachineViewController.m */,
 				903ACC4F17C3676E002FA59B /* PickViewController.h */,
 				903ACC5017C3676E002FA59B /* PickViewController.m */,
+				9080F43B17CB0BEF00B72DD7 /* AssignmentTable.h */,
+				9080F43C17CB0BEF00B72DD7 /* AssignmentTable.m */,
+				9080F43D17CB0BEF00B72DD7 /* Communicator.h */,
+				9080F43E17CB0BEF00B72DD7 /* Communicator.m */,
+				9080F43F17CB0BEF00B72DD7 /* DirectoryWatcher.h */,
+				9080F44017CB0BEF00B72DD7 /* DirectoryWatcher.m */,
+				9080F44117CB0BEF00B72DD7 /* grooveTableViewController.h */,
+				9080F44217CB0BEF00B72DD7 /* grooveTableViewController.m */,
+				9080F44317CB0BEF00B72DD7 /* MIDINote.h */,
+				9080F44417CB0BEF00B72DD7 /* MIDINote.m */,
+				9080F44517CB0BEF00B72DD7 /* NoteNumDict.h */,
+				9080F44617CB0BEF00B72DD7 /* NoteNumDict.m */,
+				9080F44717CB0BEF00B72DD7 /* VirtualInstrument.h */,
+				9080F44817CB0BEF00B72DD7 /* VirtualInstrument.m */,
 				90ADB12E17C20A2F00463306 /* Supporting Files */,
 			);
 			path = MasterMachine;
@@ -260,6 +295,13 @@
 				900C10C317C4A4F400BE46AF /* PGMidi.mm in Sources */,
 				900C10C417C4A4F400BE46AF /* PGMidiAllSources.mm in Sources */,
 				900C10C517C4A4F400BE46AF /* PGMidiFind.mm in Sources */,
+				9080F44917CB0BEF00B72DD7 /* AssignmentTable.m in Sources */,
+				9080F44A17CB0BEF00B72DD7 /* Communicator.m in Sources */,
+				9080F44B17CB0BEF00B72DD7 /* DirectoryWatcher.m in Sources */,
+				9080F44C17CB0BEF00B72DD7 /* grooveTableViewController.m in Sources */,
+				9080F44D17CB0BEF00B72DD7 /* MIDINote.m in Sources */,
+				9080F44E17CB0BEF00B72DD7 /* NoteNumDict.m in Sources */,
+				9080F44F17CB0BEF00B72DD7 /* VirtualInstrument.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

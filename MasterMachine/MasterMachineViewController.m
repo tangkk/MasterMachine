@@ -13,6 +13,10 @@
 #import "PGMidi/PGArc.h"
 #import "PGMidi/iOSVersionDetection.h"
 
+#import "MIDINote.h"
+#import "NoteNumDict.h"
+#import "AssignmentTable.h"
+
 @interface MasterMachineViewController () {
     CGRect RectA;
     CGRect RectB;
@@ -74,6 +78,12 @@
 // Three main buttons
 @property (strong, nonatomic) IBOutlet UILabel *Host;
 
+// Communication Infrastructure
+@property (readwrite) Communicator *CMU;
+/* Here the following MIDINote object contains a series of SysEx notes derived from the Assignment Table*/
+@property (readwrite) MIDINote *Assignment;
+@property (readonly) NoteNumDict *Dict;
+@property (readonly) AssignmentTable *AST;
 
 @end
 
@@ -85,10 +95,44 @@
 	// Do any additional setup after loading the view, typically from a nib.
     
     [self configureNetworkSessionAndServiceBrowser];
+    [self infrastructureSetup];
     self.rescanTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(scanPlayers) userInfo:nil repeats:YES];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
+    [self viewSetup];
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - setup routines
+- (void)infrastructureSetup {
+    if (_CMU == nil) {
+        _CMU = [[Communicator alloc] init];
+        [_CMU setPlaybackDelegate:self];
+    }
+    IF_IOS_HAS_COREMIDI(
+        if (_CMU.midi == nil) {
+            _CMU.midi = [[PGMidi alloc] init];
+        }
+    )
+    if (_Dict == nil) {
+        _Dict = [[NoteNumDict alloc] init];
+    }
+    if (_AST == nil) {
+        _AST = [[AssignmentTable alloc] init];
+    }
+    if (_AST) {
+        _Assignment = [[MIDINote alloc] initWithNote:0 duration:0 channel:kChannel_0 velocity:0
+                                               SysEx:[_AST.MusicAssignment objectForKey:@"Ionian_1"] Root:Root_C];
+    }
+}
+
+- (void)viewSetup {
     RectA = RectMake(_VolumeSliderA);
     RectB = RectMake(_VolumeSliderB);
     RectC = RectMake(_VolumeSliderC);
@@ -131,13 +175,11 @@
     _InstrumentD.titleLabel.textAlignment = NSTextAlignmentCenter;
     _InstrumentE.titleLabel.textAlignment = NSTextAlignmentCenter;
     _InstrumentF.titleLabel.textAlignment = NSTextAlignmentCenter;
-
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+#pragma mark - PlayBack routine
+-(void) MIDIPlayback:(const MIDIPacket *)packet {
+    NSLog(@"PlaybackDelegate Called");
 }
 
 #pragma mark - Volume Slider
@@ -151,9 +193,6 @@ static void Slide (CGRect Rect, CGPoint currentPoint, UIImageView *ImageView) {
         [ImageView setCenter:CGPointMake(ImageView.center.x, currentPoint.y)];
     }
 }
-
-//- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-//}
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
     UITouch *touch = [touches anyObject];
@@ -170,6 +209,8 @@ static void Slide (CGRect Rect, CGPoint currentPoint, UIImageView *ImageView) {
 #pragma mark - Root and Scale Change
 
 - (IBAction)applyRootScaleChange:(id)sender {
+    //CHECK: CMU
+    [_CMU sendMidiData:_Assignment];
 }
 
 - (IBAction)RootChange:(id)sender {
@@ -410,20 +451,12 @@ static void Slide (CGRect Rect, CGPoint currentPoint, UIImageView *ImageView) {
 }
 
 - (void)scanPlayers {
-    DSLog(@"scanPlayers...");
+    NSLog(@"scanPlayers...");
     for (MIDINetworkConnection *conn in _Session.connections) {
         NSString *PlayerName = conn.host.name;
         NSLog(@"Player: %@", PlayerName);
         
         [self addUser:PlayerName];
-    }
-    [self listConnectedDevices];
-}
-
-- (void) listConnectedDevices {
-    NSLog(@"Connected to %u devices:", [_Session.connections count]);
-    for (MIDINetworkConnection *conn in _Session.connections) {
-        NSLog(@"name: %@", conn.host.name);
     }
     NSLog(@"\n");
 }

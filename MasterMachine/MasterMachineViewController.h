@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "PickViewController.h"
+#import "Communicator.h"
 
-@interface MasterMachineViewController : UIViewController <PickerDelegate, NSNetServiceBrowserDelegate>
+@interface MasterMachineViewController : UIViewController <PickerDelegate, NSNetServiceBrowserDelegate, MIDIPlaybackHandle>
 
 @end
