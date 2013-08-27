@@ -17,6 +17,8 @@
 #import "NoteNumDict.h"
 #import "AssignmentTable.h"
 
+#import "User.h"
+
 @interface MasterMachineViewController () {
     CGRect RectA;
     CGRect RectB;
@@ -55,6 +57,7 @@
 @property (strong, nonatomic) NSMutableArray *LoopArray;
 @property (strong, nonatomic) NSMutableArray *ScoreArray;
 @property (strong, nonatomic) NSMutableArray *InstrumentArray;
+@property (strong, nonatomic) NSDictionary *InstrumentNameToChannelNum;
 
 @property (strong, nonatomic) IBOutlet UIButton *ScoreA;
 @property (strong, nonatomic) IBOutlet UIButton *ScoreB;
@@ -68,6 +71,13 @@
 @property (strong, nonatomic) IBOutlet UIButton *InstrumentD;
 @property (strong, nonatomic) IBOutlet UIButton *InstrumentE;
 @property (strong, nonatomic) IBOutlet UIButton *InstrumentF;
+@property (strong, nonatomic) IBOutlet UILabel *UserA;
+@property (strong, nonatomic) IBOutlet UILabel *UserB;
+@property (strong, nonatomic) IBOutlet UILabel *UserC;
+@property (strong, nonatomic) IBOutlet UILabel *UserD;
+@property (strong, nonatomic) IBOutlet UILabel *UserE;
+@property (strong, nonatomic) IBOutlet UILabel *UserF;
+
 
 // Network Service Related Declaraion
 @property (strong, nonatomic) NSMutableArray *services;
@@ -80,10 +90,13 @@
 
 // Communication Infrastructure
 @property (readwrite) Communicator *CMU;
-/* Here the following MIDINote object contains a series of SysEx notes derived from the Assignment Table*/
 @property (readwrite) MIDINote *Assignment;
 @property (readonly) NoteNumDict *Dict;
 @property (readonly) AssignmentTable *AST;
+
+// Users
+@property (readwrite) NSMutableArray *userArray;
+@property (readonly) NSArray *userLabelArray;
 
 @end
 
@@ -130,6 +143,9 @@
         _Assignment = [[MIDINote alloc] initWithNote:0 duration:0 channel:kChannel_0 velocity:0
                                                SysEx:[_AST.MusicAssignment objectForKey:@"Ionian_1"] Root:Root_C];
     }
+    
+    // Users Setup
+    _userArray = [[NSMutableArray alloc] init];
 }
 
 - (void)viewSetup {
@@ -162,10 +178,19 @@
     _ScoreD.titleLabel.textAlignment = NSTextAlignmentCenter;
     _ScoreE.titleLabel.textAlignment = NSTextAlignmentCenter;
     _ScoreF.titleLabel.textAlignment = NSTextAlignmentCenter;
+    _userLabelArray = [NSArray arrayWithObjects:_UserA, _UserB, _UserC, _UserD, _UserE, _UserF, nil];
     
     _InstrumentPicker = [[PickViewController alloc] initWithStyle:UITableViewStylePlain];
     _InstrumentPicker.delegate = self;
-    _InstrumentArray = [NSArray arrayWithObjects:@"Guitar", @"Piano", @"Trombone", @"Cello", nil];
+    _InstrumentArray = [NSArray arrayWithObjects:@"Trombone", @"SteelGuitar", @"Guitar", @"Ensemble", @"Piano", @"Vibraphone", nil];
+    _InstrumentNameToChannelNum = @{
+                                    @"Trombone":@1,
+                                    @"SteelGuitar":@2,
+                                    @"Guitar":@3,
+                                    @"Ensemble":@4,
+                                    @"Piano":@5,
+                                    @"Vibraphone":@6
+                                    };
     [_InstrumentPicker passArray:_InstrumentArray];
     _InstrumentPopOver = [[UIPopoverController alloc] initWithContentViewController:_InstrumentPicker];
     _InstrumentPopOver.popoverContentSize = CGSizeMake(200, 200);
@@ -302,7 +327,7 @@ static void Slide (CGRect Rect, CGPoint currentPoint, UIImageView *ImageView) {
 }
 
 
-#pragma mark - Loop and Score Selector
+#pragma mark - Loop, Score, Instrument Selector
 
 - (IBAction)loopSelector:(id)sender {
     UIButton *Selector = (UIButton *)sender;
@@ -397,13 +422,19 @@ static void Slide (CGRect Rect, CGPoint currentPoint, UIImageView *ImageView) {
             default:
                 break;
         }
-        [_InstrumentPopOver dismissPopoverAnimated:YES];
+        
+        // Broadcast the Arr(as SysEx) and the ID(as Root) to let each player know its unique ID and its instrument
+        // This is how master can differentiate players
+        if (_userArray.count > Tag) {
+            User *player = [_userArray objectAtIndex:Tag];
+            NSNumber *Channel = [_InstrumentNameToChannelNum objectForKey:selectedName];
+            [player setInstrument:selectedName];
+            [_Assignment setSysEx:[player.IP componentsSeparatedByString:@"."]];
+            [_Assignment setRoot:[Channel unsignedCharValue]];
+            [_CMU sendMidiData:_Assignment];
+            [_InstrumentPopOver dismissPopoverAnimated:YES];
+        }
     }
-}
-
-#pragma mark -  user Related functions
-- (void) addUser:(NSString *)Name {
-    
 }
 
 #pragma mark - network configuration
@@ -426,10 +457,6 @@ static void Slide (CGRect Rect, CGPoint currentPoint, UIImageView *ImageView) {
     DSLog(@"service hostName: %@", service.hostName);
     DSLog(@"service accessLabel: %@", service.accessibilityLabel);
     [self.services addObject:service];
-    
-//    if ([service.name  isEqualToString:_Session.networkName]) {
-//        NSLog(@"Self Service!");
-//    }
 }
 
 - (void) netServiceBrowser:(NSNetServiceBrowser*)serviceBrowser didRemoveService:(NSNetService *)service moreComing:(BOOL)moreComing {
@@ -447,18 +474,48 @@ static void Slide (CGRect Rect, CGPoint currentPoint, UIImageView *ImageView) {
         _Host.textColor = [UIColor grayColor];
     } else {
         _Host.textColor = [UIColor whiteColor];
+        // Clear the user arrays and labels
+        [_userArray removeAllObjects];
+        for (UILabel *Label in _userLabelArray) {
+            Label.textColor = [UIColor whiteColor];
+        }
+        _InstrumentA.titleLabel.text = @"Instrument";
+        _InstrumentB.titleLabel.text = @"Instrument";
+        _InstrumentC.titleLabel.text = @"Instrument";
+        _InstrumentD.titleLabel.text = @"Instrument";
+        _InstrumentE.titleLabel.text = @"Instrument";
+        _InstrumentF.titleLabel.text = @"Instrument";
     }
 }
 
+// Keep scanning incomming players all the time, let them join whenever possible
 - (void)scanPlayers {
     NSLog(@"scanPlayers...");
-    for (MIDINetworkConnection *conn in _Session.connections) {
-        NSString *PlayerName = conn.host.name;
-        NSLog(@"Player: %@", PlayerName);
-        
-        [self addUser:PlayerName];
+    NSInteger userArrayIdx = 0;
+    
+    if (_Session.enabled) {
+        for (MIDINetworkConnection *conn in _Session.connections) {
+            // no more than 6 players is allowed for the moment!!
+            if (userArrayIdx > 5) {
+                break;
+            }
+            NSString *playerName = conn.host.name;
+            NSString *IP = conn.host.address;
+            NSLog(@"Player name: %@", playerName);
+            NSLog(@"Player IP: %@", IP);
+            NSLog(@"Player ID: %d", userArrayIdx);
+            if (_userArray.count < (userArrayIdx + 1) && IP != nil) {
+                // new users comming
+                UILabel *userLabel = [_userLabelArray objectAtIndex:userArrayIdx];
+                User *user = [[User alloc] initWithUserName:playerName ID:userArrayIdx IP:IP Instrument:@"unknown"];
+                [_userArray addObject:user];
+                userLabel.textColor = [UIColor grayColor];
+            }
+            userArrayIdx++;
+        }
+        NSLog(@"\n");
     }
-    NSLog(@"\n");
 }
+
 
 @end
