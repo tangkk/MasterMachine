@@ -13,6 +13,13 @@
 		900C10C717C4A51F00BE46AF /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 900C10C617C4A51F00BE46AF /* CoreMIDI.framework */; };
 		900C10C917C4A52400BE46AF /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 900C10C817C4A52400BE46AF /* AVFoundation.framework */; };
 		900C10CB17C4A53800BE46AF /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 900C10CA17C4A53800BE46AF /* AudioToolbox.framework */; };
+		902DF2CA17CC857400A88965 /* Ensemble.aupreset in Resources */ = {isa = PBXBuildFile; fileRef = 902DF2C317CC857400A88965 /* Ensemble.aupreset */; };
+		902DF2CB17CC857400A88965 /* Guitar.aupreset in Resources */ = {isa = PBXBuildFile; fileRef = 902DF2C417CC857400A88965 /* Guitar.aupreset */; };
+		902DF2CD17CC857400A88965 /* Piano.aupreset in Resources */ = {isa = PBXBuildFile; fileRef = 902DF2C617CC857400A88965 /* Piano.aupreset */; };
+		902DF2CE17CC857400A88965 /* SteelGuitar.aupreset in Resources */ = {isa = PBXBuildFile; fileRef = 902DF2C717CC857400A88965 /* SteelGuitar.aupreset */; };
+		902DF2CF17CC857400A88965 /* Trombone.aupreset in Resources */ = {isa = PBXBuildFile; fileRef = 902DF2C817CC857400A88965 /* Trombone.aupreset */; };
+		902DF2D017CC857400A88965 /* Vibraphone.aupreset in Resources */ = {isa = PBXBuildFile; fileRef = 902DF2C917CC857400A88965 /* Vibraphone.aupreset */; };
+		902DF2D217CC86C300A88965 /* Sounds in Resources */ = {isa = PBXBuildFile; fileRef = 902DF2D117CC86C300A88965 /* Sounds */; };
 		9034291417C47C370008032B /* Go.png in Resources */ = {isa = PBXBuildFile; fileRef = 9034291317C47C370008032B /* Go.png */; };
 		90368C0917C3148600654EA3 /* Triangle.png in Resources */ = {isa = PBXBuildFile; fileRef = 90368C0817C3148600654EA3 /* Triangle.png */; };
 		903ACC4E17C33020002FA59B /* Slider.png in Resources */ = {isa = PBXBuildFile; fileRef = 903ACC4D17C33020002FA59B /* Slider.png */; };
@@ -55,6 +62,13 @@
 		900C10C617C4A51F00BE46AF /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = System/Library/Frameworks/CoreMIDI.framework; sourceTree = SDKROOT; };
 		900C10C817C4A52400BE46AF /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		900C10CA17C4A53800BE46AF /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		902DF2C317CC857400A88965 /* Ensemble.aupreset */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Ensemble.aupreset; sourceTree = "<group>"; };
+		902DF2C417CC857400A88965 /* Guitar.aupreset */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Guitar.aupreset; sourceTree = "<group>"; };
+		902DF2C617CC857400A88965 /* Piano.aupreset */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Piano.aupreset; sourceTree = "<group>"; };
+		902DF2C717CC857400A88965 /* SteelGuitar.aupreset */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = SteelGuitar.aupreset; sourceTree = "<group>"; };
+		902DF2C817CC857400A88965 /* Trombone.aupreset */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Trombone.aupreset; sourceTree = "<group>"; };
+		902DF2C917CC857400A88965 /* Vibraphone.aupreset */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Vibraphone.aupreset; sourceTree = "<group>"; };
+		902DF2D117CC86C300A88965 /* Sounds */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Sounds; sourceTree = "<group>"; };
 		9034291317C47C370008032B /* Go.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Go.png; sourceTree = "<group>"; };
 		90368C0817C3148600654EA3 /* Triangle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Triangle.png; sourceTree = "<group>"; };
 		903ACC4C17C32B60002FA59B /* Definition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Definition.h; sourceTree = "<group>"; };
@@ -136,6 +150,13 @@
 		90ADB11B17C20A2E00463306 = {
 			isa = PBXGroup;
 			children = (
+				902DF2C317CC857400A88965 /* Ensemble.aupreset */,
+				902DF2C417CC857400A88965 /* Guitar.aupreset */,
+				902DF2C617CC857400A88965 /* Piano.aupreset */,
+				902DF2C717CC857400A88965 /* SteelGuitar.aupreset */,
+				902DF2C817CC857400A88965 /* Trombone.aupreset */,
+				902DF2C917CC857400A88965 /* Vibraphone.aupreset */,
+				902DF2D117CC86C300A88965 /* Sounds */,
 				900C10BA17C4A4F400BE46AF /* PGMidi */,
 				90ADB12D17C20A2E00463306 /* MasterMachine */,
 				90ADB12617C20A2E00463306 /* Frameworks */,
@@ -283,6 +304,13 @@
 				90F08AAE17C317E200A53704 /* Circle2.png in Resources */,
 				903ACC4E17C33020002FA59B /* Slider.png in Resources */,
 				9034291417C47C370008032B /* Go.png in Resources */,
+				902DF2CA17CC857400A88965 /* Ensemble.aupreset in Resources */,
+				902DF2CB17CC857400A88965 /* Guitar.aupreset in Resources */,
+				902DF2CD17CC857400A88965 /* Piano.aupreset in Resources */,
+				902DF2CE17CC857400A88965 /* SteelGuitar.aupreset in Resources */,
+				902DF2CF17CC857400A88965 /* Trombone.aupreset in Resources */,
+				902DF2D017CC857400A88965 /* Vibraphone.aupreset in Resources */,
+				902DF2D217CC86C300A88965 /* Sounds in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

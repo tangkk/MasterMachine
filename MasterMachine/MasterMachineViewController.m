@@ -16,6 +16,7 @@
 #import "MIDINote.h"
 #import "NoteNumDict.h"
 #import "AssignmentTable.h"
+#import "VirtualInstrument.h"
 
 #import "User.h"
 
@@ -26,10 +27,9 @@
     CGRect RectD;
     CGRect RectE;
     CGRect RectF;
-    
-    NSString *Root;
-    NSString *Scale;
 }
+
+// View controller elements
 @property (strong, nonatomic) IBOutlet UIImageView *VolumeA;
 @property (strong, nonatomic) IBOutlet UIImageView *VolumeB;
 @property (strong, nonatomic) IBOutlet UIImageView *VolumeC;
@@ -47,6 +47,10 @@
 @property (strong, nonatomic) IBOutlet UILabel *LoopName;
 @property (strong, nonatomic) IBOutlet UILabel *OverallScore;
 @property (strong, nonatomic) IBOutlet UILabel *RootScale;
+@property (assign) UInt8 RootNum;
+@property (copy) NSString *Root;
+@property (copy) NSString *Scale;
+@property (assign) BOOL isJamming;
 
 @property (strong, nonatomic) UIPopoverController *LoopPopOver;
 @property (strong, nonatomic) UIPopoverController *OverallScorePopOver;
@@ -85,14 +89,18 @@
 @property (readwrite) MIDINetworkSession *Session;
 @property (nonatomic, retain) NSTimer * rescanTimer;
 
-// Three main buttons
+// Three main button Labels
 @property (strong, nonatomic) IBOutlet UILabel *Host;
+@property (strong, nonatomic) IBOutlet UILabel *Jam;
 
 // Communication Infrastructure
 @property (readwrite) Communicator *CMU;
 @property (readwrite) MIDINote *Assignment;
 @property (readonly) NoteNumDict *Dict;
 @property (readonly) AssignmentTable *AST;
+
+// Virtual Instrument
+@property (readonly) VirtualInstrument *VI;
 
 // Users
 @property (readwrite) NSMutableArray *userArray;
@@ -123,30 +131,6 @@
 }
 
 #pragma mark - setup routines
-- (void)infrastructureSetup {
-    if (_CMU == nil) {
-        _CMU = [[Communicator alloc] init];
-        [_CMU setPlaybackDelegate:self];
-    }
-    IF_IOS_HAS_COREMIDI(
-        if (_CMU.midi == nil) {
-            _CMU.midi = [[PGMidi alloc] init];
-        }
-    )
-    if (_Dict == nil) {
-        _Dict = [[NoteNumDict alloc] init];
-    }
-    if (_AST == nil) {
-        _AST = [[AssignmentTable alloc] init];
-    }
-    if (_AST) {
-        _Assignment = [[MIDINote alloc] initWithNote:0 duration:0 channel:kChannel_0 velocity:0
-                                               SysEx:[_AST.MusicAssignment objectForKey:@"Ionian_1"] Root:Root_C];
-    }
-    
-    // Users Setup
-    _userArray = [[NSMutableArray alloc] init];
-}
 
 - (void)viewSetup {
     RectA = RectMake(_VolumeSliderA);
@@ -155,9 +139,11 @@
     RectD = RectMake(_VolumeSliderD);
     RectE = RectMake(_VolumeSliderE);
     RectF = RectMake(_VolumeSliderF);
-    Root = @"C";
-    Scale = @"IONIAN";
+    _RootNum = Root_C;
+    _Root = @"C";
+    _Scale = @"IONIAN";
     [self ChangeRootandScale];
+    _isJamming = false;
     
     _LoopPicker = [[PickViewController alloc] initWithStyle:UITableViewStylePlain];
     _LoopPicker.delegate = self;
@@ -183,14 +169,6 @@
     _InstrumentPicker = [[PickViewController alloc] initWithStyle:UITableViewStylePlain];
     _InstrumentPicker.delegate = self;
     _InstrumentArray = [NSArray arrayWithObjects:@"Trombone", @"SteelGuitar", @"Guitar", @"Ensemble", @"Piano", @"Vibraphone", nil];
-    _InstrumentNameToChannelNum = @{
-                                    @"Trombone":@1,
-                                    @"SteelGuitar":@2,
-                                    @"Guitar":@3,
-                                    @"Ensemble":@4,
-                                    @"Piano":@5,
-                                    @"Vibraphone":@6
-                                    };
     [_InstrumentPicker passArray:_InstrumentArray];
     _InstrumentPopOver = [[UIPopoverController alloc] initWithContentViewController:_InstrumentPicker];
     _InstrumentPopOver.popoverContentSize = CGSizeMake(200, 200);
@@ -202,9 +180,71 @@
     _InstrumentF.titleLabel.textAlignment = NSTextAlignmentCenter;
 }
 
+- (void)infrastructureSetup {
+    if (_CMU == nil) {
+        _CMU = [[Communicator alloc] init];
+        [_CMU setPlaybackDelegate:self];
+    }
+    IF_IOS_HAS_COREMIDI(
+                        if (_CMU.midi == nil) {
+                            _CMU.midi = [[PGMidi alloc] init];
+                        }
+                        )
+    if (_VI == nil) {
+        _VI = [[VirtualInstrument alloc] init];
+        [_VI setInstrument:@"Trombone" withInstrumentID:Trombone]; //This is the groove instrument
+        [_VI setInstrument:@"SteelGuitar" withInstrumentID:SteelGuitar];
+        [_VI setInstrument:@"Guitar" withInstrumentID:Guitar];
+        [_VI setInstrument:@"Ensemble" withInstrumentID:Ensemble];
+        [_VI setInstrument:@"Piano" withInstrumentID:Piano];
+        [_VI setInstrument:@"Vibraphone" withInstrumentID:Vibraphone];
+        
+        if (_InstrumentNameToChannelNum == nil) {
+            _InstrumentNameToChannelNum = @{
+                                            @"Trombone":@1,
+                                            @"SteelGuitar":@2,
+                                            @"Guitar":@3,
+                                            @"Ensemble":@4,
+                                            @"Piano":@5,
+                                            @"Vibraphone":@6
+                                            };
+        }
+    }
+    if (_Dict == nil) {
+        _Dict = [[NoteNumDict alloc] init];
+    }
+    if (_AST == nil) {
+        _AST = [[AssignmentTable alloc] init];
+    }
+    if (_AST) {
+        _Assignment = [[MIDINote alloc] initWithNote:0 duration:0 channel:kChannel_0 velocity:0
+                                               SysEx:[_AST.MusicAssignment objectForKey:@"Ionian"] Root:Root_C];
+    }
+    
+    // Users Setup
+    _userArray = [[NSMutableArray alloc] init];
+}
+
 #pragma mark - PlayBack routine
 -(void) MIDIPlayback:(const MIDIPacket *)packet {
     NSLog(@"PlaybackDelegate Called");
+    UInt8 noteTypeAndChannel;
+    UInt8 noteNum;
+    UInt8 Velocity;
+    noteTypeAndChannel = (packet->length > 0) ? packet->data[0] : 0;
+    noteNum = (packet->length > 1) ? packet->data[1] : 0;
+    Velocity = (packet->length >2) ? packet->data[2] : 0;
+    NSLog(@"noteNum: %d", noteNum);
+    
+    UInt8 noteType, noteChannel;
+    noteType = noteTypeAndChannel & 0xF0;
+    noteChannel = noteTypeAndChannel & 0x0F;
+    NSLog(@"noteType: %x, noteChannel: %x", noteType, noteChannel);
+    
+    MIDINote *Note = [[MIDINote alloc] initWithNote:noteNum duration:1 channel:noteChannel velocity:Velocity SysEx:0 Root:noteType];
+    if (noteChannel <= 6 && _VI) {
+        [_VI playMIDI:Note];
+    }
 }
 
 #pragma mark - Volume Slider
@@ -234,8 +274,11 @@ static void Slide (CGRect Rect, CGPoint currentPoint, UIImageView *ImageView) {
 #pragma mark - Root and Scale Change
 
 - (IBAction)applyRootScaleChange:(id)sender {
-    //CHECK: CMU
-    [_CMU sendMidiData:_Assignment];
+    if (_isJamming) {
+        [_Assignment setSysEx:[_AST.MusicAssignment objectForKey:_Scale]];
+        [_Assignment setRoot:_RootNum];
+        [_CMU sendMidiData:_Assignment];
+    }
 }
 
 - (IBAction)RootChange:(id)sender {
@@ -243,40 +286,52 @@ static void Slide (CGRect Rect, CGPoint currentPoint, UIImageView *ImageView) {
     int tag = button.tag;
     switch (tag) {
         case 0:
-            Root = @"C";
+            _RootNum = Root_C;
+            _Root = @"C";
             break;
         case 1:
-            Root = @"C#";
+            _RootNum = Root_CC;
+            _Root = @"C#";
             break;
         case 2:
-            Root = @"D";
+            _RootNum = Root_D;
+            _Root = @"D";
             break;
         case 3:
-            Root = @"D#";
+            _RootNum = Root_DD;
+            _Root = @"D#";
             break;
         case 4:
-            Root = @"E";
+            _RootNum = Root_E;
+            _Root = @"E";
             break;
         case 5:
-            Root = @"F";
+            _RootNum = Root_F;
+            _Root = @"F";
             break;
         case 6:
-            Root = @"F#";
+            _RootNum = Root_FF;
+            _Root = @"F#";
             break;
         case 7:
-            Root = @"G";
+            _RootNum = Root_G;
+            _Root = @"G";
             break;
         case 8:
-            Root = @"G#";
+            _RootNum = Root_GG;
+            _Root = @"G#";
             break;
         case 9:
-            Root = @"A";
+            _RootNum = Root_A;
+            _Root = @"A";
             break;
         case 10:
-            Root = @"A#";
+            _RootNum = Root_AA;
+            _Root = @"A#";
             break;
         case 11:
-            Root = @"B";
+            _RootNum = Root_B;
+            _Root = @"B";
             break;
         default:
             break;
@@ -289,31 +344,34 @@ static void Slide (CGRect Rect, CGPoint currentPoint, UIImageView *ImageView) {
     int tag = button.tag;
     switch (tag) {
         case 0:
-            Scale = @"IONIAN";
+            _Scale = @"IONIAN";
             break;
         case 1:
-            Scale = @"DORIAN";
+            _Scale = @"DORIAN";
             break;
         case 2:
-            Scale = @"PHRYGIAN";
+            _Scale = @"PHRYGIAN";
             break;
         case 3:
-            Scale = @"LYDIAN";
+            _Scale = @"LYDIAN";
             break;
         case 4:
-            Scale = @"MIXOLYDIAN";
+            _Scale = @"MIXOLYDIAN";
             break;
         case 5:
-            Scale = @"AEOLIAN";
+            _Scale = @"AEOLIAN";
             break;
         case 6:
-            Scale = @"LOCRIAN";
+            _Scale = @"LOCRIAN";
             break;
         case 7:
-            Scale = @"BLUES";
+            _Scale = @"BLUES";
             break;
         case 8:
-            Scale = @"PENTATONIC";
+            _Scale = @"PENTATONIC";
+            break;
+        case 9:
+            _Scale = @"HARMONIC";
             break;
 
         default:
@@ -323,7 +381,24 @@ static void Slide (CGRect Rect, CGPoint currentPoint, UIImageView *ImageView) {
 }
 
 - (void) ChangeRootandScale {
-    _RootScale.text = [NSString stringWithFormat:@"Root: %@, Scale: %@", Root, Scale];
+    _RootScale.text = [NSString stringWithFormat:@"Root: %@, Scale: %@", _Root, _Scale];
+}
+
+
+- (IBAction)Jam:(id)sender {
+    _isJamming = !_isJamming;
+    if (_isJamming) {
+        _Jam.textColor = [UIColor grayColor];
+        [_Assignment setSysEx:[_AST.MusicAssignment objectForKey:_Scale]];
+        [_Assignment setRoot:_RootNum];
+        [_CMU sendMidiData:_Assignment];
+    } else {
+        _Jam.textColor = [UIColor whiteColor];
+        [_Assignment setSysEx:[_AST.MusicAssignment objectForKey:@"NONE"]];
+        [_Assignment setRoot:0];
+        [_CMU sendMidiData:_Assignment];
+    }
+    
 }
 
 

@@ -169,14 +169,9 @@ NSString *StringFromPacket(const MIDIPacket *packet)
         UInt8 noteSysEx[3] = {0xF0, 0x7D, 0xF7};
         [_midi sendBytes:noteSysEx size:sizeof(noteSysEx)];
     } else if (SysEx.count == 1) {
-        NSLog(@"Master Exit and notifies the slaves to exit too");
+        NSLog(@"Master stop jamming");
         // All notes off assignment
         UInt8 noteSysEx[4] = {0xF0, 0x7D, 0x00, 0xF7};
-        [_midi sendBytes:noteSysEx size:sizeof(noteSysEx)];
-    } else if (SysEx.count == 2) {
-        NSLog(@"Master sends back ack data");
-        // All notes off assignment
-        UInt8 noteSysEx[5] = {0xF0, 0x7D, 0x00, 0x00, 0xF7};
         [_midi sendBytes:noteSysEx size:sizeof(noteSysEx)];
     } else if (SysEx.count == 4){
         NSLog(@"Master broadcast MIDI channel mapping");

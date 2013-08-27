@@ -1,2 +1,4 @@
 MasterMachine.xcodeproj/project.xcworkspace
 MasterMachine.xcodeproj/xcuserdata
+*.aupreset
+Sounds/

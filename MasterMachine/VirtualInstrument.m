@@ -6,12 +6,6 @@
 //  Copyright (c) 2013 tangkk. All rights reserved.
 //
 
-/* Some of the code here are copied from sample code LoadPresetDemo
- provided by Apple Inc.
- */
-
-// TODO: Stop Playing notes
-
 #import "VirtualInstrument.h"
 #import "MIDInote.h"
 #import <AssertMacros.h>
