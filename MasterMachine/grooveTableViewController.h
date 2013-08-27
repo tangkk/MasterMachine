@@ -11,7 +11,7 @@
 
 @protocol SelectedGrooveDelegate <NSObject>
 @required
--(void) selectedgroove:(NSURL*)grooveURL;
+-(void) selectedgroove:(NSURL*)grooveURL withName:(NSString *)fileName;
 @end
 
 @interface grooveTableViewController : UITableViewController <DirectoryWatcherDelegate, UIDocumentInteractionControllerDelegate>

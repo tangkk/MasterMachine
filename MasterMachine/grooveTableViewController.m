@@ -114,9 +114,8 @@ static NSString* documents[] =
     fileURL = [self.documentURLs objectAtIndex:indexPath.row];
     // Configure the cell...
     cell.textLabel.text = [[[fileURL path] lastPathComponent] stringByDeletingPathExtension];
-    cell.textLabel.font = [UIFont fontWithName:@"Noteworthy-Bold" size:16.0];
-    cell.textLabel.textColor = [UIColor yellowColor];
-    
+    cell.textLabel.font = [UIFont fontWithName:@"Noteworthy-Bold" size:18.0];
+    cell.textLabel.textColor = [UIColor whiteColor];
     cell.textLabel.backgroundColor =[UIColor clearColor];
     cell.backgroundColor = [UIColor blackColor];
     
@@ -183,14 +182,15 @@ static NSString* documents[] =
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
     
+    // Get the URL
     NSURL *grooveURL;
     grooveURL = [self.documentURLs objectAtIndex:indexPath.row];
-    
+    NSString *FileName = [[[grooveURL path] lastPathComponent] stringByDeletingPathExtension];
    // [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
     //Notify the delegate if it exists.
     if (_delegate != nil) {
-        [_delegate selectedgroove:grooveURL];
+        [_delegate selectedgroove:grooveURL withName:FileName];
     }
 }
 

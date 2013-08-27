@@ -27,6 +27,8 @@
     CGRect RectD;
     CGRect RectE;
     CGRect RectF;
+    
+    CGFloat VolumeMax, VolumeMin;
 }
 
 // View controller elements
@@ -55,10 +57,9 @@
 @property (strong, nonatomic) UIPopoverController *LoopPopOver;
 @property (strong, nonatomic) UIPopoverController *OverallScorePopOver;
 @property (strong, nonatomic) UIPopoverController *InstrumentPopOver;
-@property (strong, nonatomic) PickViewController *LoopPicker;
+@property (strong, nonatomic) grooveTableViewController *LoopPicker;
 @property (strong, nonatomic) PickViewController *OverallScorePicker;
 @property (strong, nonatomic) PickViewController *InstrumentPicker;
-@property (strong, nonatomic) NSMutableArray *LoopArray;
 @property (strong, nonatomic) NSMutableArray *ScoreArray;
 @property (strong, nonatomic) NSMutableArray *InstrumentArray;
 @property (strong, nonatomic) NSDictionary *InstrumentNameToChannelNum;
@@ -102,6 +103,11 @@
 // Virtual Instrument
 @property (readonly) VirtualInstrument *VI;
 
+// Backing Manager
+@property (readwrite) NSURL *currentTrackURL;
+@property (readonly) AVAudioPlayer *audioPlayer;
+@property (readwrite) BOOL isLoopPlaying;
+
 // Users
 @property (readwrite) NSMutableArray *userArray;
 @property (readonly) NSArray *userLabelArray;
@@ -139,16 +145,16 @@
     RectD = RectMake(_VolumeSliderD);
     RectE = RectMake(_VolumeSliderE);
     RectF = RectMake(_VolumeSliderF);
+    VolumeMin = RectA.origin.y;
+    VolumeMax = RectA.origin.y + RectA.size.height;
     _RootNum = Root_C;
     _Root = @"C";
     _Scale = @"IONIAN";
     [self ChangeRootandScale];
     _isJamming = false;
     
-    _LoopPicker = [[PickViewController alloc] initWithStyle:UITableViewStylePlain];
+    _LoopPicker = [[grooveTableViewController alloc] initWithStyle:UITableViewStylePlain];
     _LoopPicker.delegate = self;
-    _LoopArray = [NSArray arrayWithObjects:@"Jazz 1", @"Blues ABC", @"How much left", @"Baby Baby", nil];
-    [_LoopPicker passArray:_LoopArray];
     _LoopPopOver = [[UIPopoverController alloc] initWithContentViewController:_LoopPicker];
     _LoopPopOver.popoverContentSize = CGSizeMake(300, 200);
     
@@ -223,6 +229,9 @@
     
     // Users Setup
     _userArray = [[NSMutableArray alloc] init];
+    
+    // Backing Manager Setup
+    _isLoopPlaying = false;
 }
 
 #pragma mark - PlayBack routine
@@ -244,6 +253,19 @@
     MIDINote *Note = [[MIDINote alloc] initWithNote:noteNum duration:1 channel:noteChannel velocity:Velocity SysEx:0 Root:noteType];
     if (noteChannel <= 6 && _VI) {
         [_VI playMIDI:Note];
+    }
+}
+
+- (IBAction)loopPlay:(id)sender {
+    _isLoopPlaying = !_isLoopPlaying;
+    if (_isLoopPlaying && _currentTrackURL != nil) {
+        _audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:_currentTrackURL error:nil];
+        _audioPlayer.volume = 0.3;
+        [_audioPlayer prepareToPlay];
+        [_audioPlayer play];
+    } else {
+        [_audioPlayer stop];
+        _audioPlayer = nil;
     }
 }
 
@@ -269,6 +291,33 @@ static void Slide (CGRect Rect, CGPoint currentPoint, UIImageView *ImageView) {
     Slide(RectD, currentPoint, _VolumeD);
     Slide(RectE, currentPoint, _VolumeE);
     Slide(RectF, currentPoint, _VolumeF);
+    
+    [self volumeChanged];
+}
+
+- (void)volumeChanged {
+    CGFloat Volume[6];
+    CGFloat centerY;
+    centerY = _VolumeA.center.y;
+    Volume[0] = 1 - (centerY - VolumeMin) / (VolumeMax - VolumeMin);
+    centerY = _VolumeB.center.y;
+    Volume[1] = 1 - (centerY - VolumeMin) / (VolumeMax - VolumeMin);
+    centerY = _VolumeC.center.y;
+    Volume[2] = 1 - (centerY - VolumeMin) / (VolumeMax - VolumeMin);
+    centerY = _VolumeD.center.y;
+    Volume[3] = 1 - (centerY - VolumeMin) / (VolumeMax - VolumeMin);
+    centerY = _VolumeE.center.y;
+    Volume[4] = 1 - (centerY - VolumeMin) / (VolumeMax - VolumeMin);
+    centerY = _VolumeF.center.y;
+    Volume[5] = 1 - (centerY - VolumeMin) / (VolumeMax - VolumeMin);
+    
+    UInt8 userIdx = 0;
+    for (User *user in _userArray) {
+        if (userIdx > 5)
+            break;
+        user.volume = Volume[userIdx];
+        userIdx++;
+    }
 }
 
 #pragma mark - Root and Scale Change
@@ -401,13 +450,10 @@ static void Slide (CGRect Rect, CGPoint currentPoint, UIImageView *ImageView) {
     
 }
 
-
 #pragma mark - Loop, Score, Instrument Selector
 
 - (IBAction)loopSelector:(id)sender {
     UIButton *Selector = (UIButton *)sender;
-    [_LoopPicker passAccLabel:Selector.accessibilityLabel];
-    [_LoopPicker passTag:Selector.tag];
     CGPoint origin = Selector.frame.origin;
     CGSize size = Selector.frame.size;
     CGRect rect = CGRectMake(origin.x + size.width/2, origin.y + size.height/2, 1, 1);
@@ -435,11 +481,14 @@ static void Slide (CGRect Rect, CGPoint currentPoint, UIImageView *ImageView) {
     [_InstrumentPopOver presentPopoverFromRect:rect inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
 }
 
+-(void) selectedgroove:(NSURL*)grooveURL withName:(NSString *)fileName{
+    NSLog(@"file URL = %@", grooveURL);
+    _LoopName.text = fileName;
+    _currentTrackURL = grooveURL;
+    [_LoopPopOver dismissPopoverAnimated:YES];
+}
+
 - (void)selected:(NSString*)selectedName withAccLabel:(NSString *)AccLabel withTag:(int)Tag {
-    if ([AccLabel isEqual: @"Loop"]) {
-        _LoopName.text = selectedName;
-        [_LoopPopOver dismissPopoverAnimated:YES];
-    }
     if ([AccLabel isEqual: @"Score"]) {
         switch (Tag) {
             // Player Score
