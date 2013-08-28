@@ -172,10 +172,10 @@ NSString *StringFromPacket(const MIDIPacket *packet)
     } else if (SysEx.count == 4){
         NSLog(@"Master broadcast player channel and ID mapping");
         
-        UInt8 ad1 = (UInt8) [SysEx[0] intValue];
-        UInt8 ad2 = (UInt8) [SysEx[1] intValue];
-        UInt8 ad3 = (UInt8) [SysEx[2] intValue];
-        UInt8 ad4 = (UInt8) [SysEx[3] intValue];
+        UInt8 ad1 = (UInt8) [[SysEx objectAtIndex:0] intValue];
+        UInt8 ad2 = (UInt8) [[SysEx objectAtIndex:1] intValue];
+        UInt8 ad3 = (UInt8) [[SysEx objectAtIndex:2] intValue];
+        UInt8 ad4 = (UInt8) [[SysEx objectAtIndex:3] intValue];
         NSLog(@"add1: %d, add2: %d, add3: %d, add4: %d", ad1, ad2, ad3, ad4);
         
         // The IP address unit each should be further divided into two parts each to transfer by coreMIDI

@@ -28,6 +28,8 @@
     CGRect RectE;
     CGRect RectF;
     
+    UInt8 score[7];
+    
     CGFloat VolumeMax, VolumeMin;
 }
 
@@ -172,7 +174,7 @@
     if (_OverallScorePicker == nil) {
         _OverallScorePicker = [[PickViewController alloc] initWithStyle:UITableViewStylePlain];
         _OverallScorePicker.delegate = self;
-        _ScoreArray = [NSArray arrayWithObjects:@"100", @"95", @"90", @"85", @"80", nil];
+        _ScoreArray = [NSArray arrayWithObjects:@"100", @"95", @"90", @"85", @"80", @"75", @"70", nil];
         [_OverallScorePicker passArray:_ScoreArray];
         _OverallScorePopOver = [[UIPopoverController alloc] initWithContentViewController:_OverallScorePicker];
         _OverallScorePopOver.popoverContentSize = CGSizeMake(100, 200);
@@ -372,14 +374,6 @@ static void Slide (CGRect Rect, CGPoint currentPoint, UIImageView *ImageView) {
 
 #pragma mark - Root and Scale Change
 
-- (IBAction)applyRootScaleChange:(id)sender {
-    if (_isJamming) {
-        [_Assignment setSysEx:[_AST.MusicAssignment objectForKey:_Scale]];
-        [_Assignment setRoot:_RootNum];
-        [_CMU sendMidiData:_Assignment];
-    }
-}
-
 - (IBAction)RootChange:(id)sender {
     UIButton *button = (UIButton *)sender;
     int tag = button.tag;
@@ -477,6 +471,17 @@ static void Slide (CGRect Rect, CGPoint currentPoint, UIImageView *ImageView) {
             break;
     }
     [self ChangeRootandScale];
+    
+    // commit the change only when scale change
+    [self applyRootScaleChange];
+}
+
+- (void)applyRootScaleChange {
+    if (_isJamming) {
+        [_Assignment setSysEx:[_AST.MusicAssignment objectForKey:_Scale]];
+        [_Assignment setRoot:_RootNum];
+        [_CMU sendMidiData:_Assignment];
+    }
 }
 
 - (void) ChangeRootandScale {
@@ -496,6 +501,18 @@ static void Slide (CGRect Rect, CGPoint currentPoint, UIImageView *ImageView) {
         [_Assignment setSysEx:[_AST.MusicAssignment objectForKey:@"NONE"]];
         [_Assignment setRoot:0];
         [_CMU sendMidiData:_Assignment];
+        _InstrumentA.titleLabel.text = @"Instrument";
+        _InstrumentB.titleLabel.text = @"Instrument";
+        _InstrumentC.titleLabel.text = @"Instrument";
+        _InstrumentD.titleLabel.text = @"Instrument";
+        _InstrumentE.titleLabel.text = @"Instrument";
+        _InstrumentF.titleLabel.text = @"Instrument";
+        _ScoreA.titleLabel.text = @"Score";
+        _ScoreB.titleLabel.text = @"Score";
+        _ScoreC.titleLabel.text = @"Score";
+        _ScoreD.titleLabel.text = @"Score";
+        _ScoreE.titleLabel.text = @"Score";
+        _ScoreF.titleLabel.text = @"Score";
     }
     
 }
@@ -511,7 +528,7 @@ static void Slide (CGRect Rect, CGPoint currentPoint, UIImageView *ImageView) {
     [_LoopPopOver presentPopoverFromRect:rect inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
 }
 
-- (IBAction)PlayerScoreSelector:(id)sender {
+- (IBAction)scoreSelector:(id)sender {
     UIButton *Selector = (UIButton *)sender;
     [_OverallScorePicker passAccLabel:Selector.accessibilityLabel];
     [_OverallScorePicker passTag:Selector.tag];
@@ -544,6 +561,7 @@ static void Slide (CGRect Rect, CGPoint currentPoint, UIImageView *ImageView) {
             // Player Score
             case 0:
                 _ScoreA.titleLabel.text = selectedName;
+                score[Tag] = [selectedName integerValue];
                 break;
             case 1:
                 _ScoreB.titleLabel.text = selectedName;
@@ -569,6 +587,7 @@ static void Slide (CGRect Rect, CGPoint currentPoint, UIImageView *ImageView) {
             default:
                 break;
         }
+        score[Tag] = [selectedName integerValue];
         [_OverallScorePopOver dismissPopoverAnimated:YES];
     }
     if ([AccLabel isEqual:@"Instrument"]) {
@@ -613,6 +632,46 @@ static void Slide (CGRect Rect, CGPoint currentPoint, UIImageView *ImageView) {
         [_InstrumentPopOver dismissPopoverAnimated:YES];
     }
 }
+
+#pragma mark - score and other feedback
+- (IBAction)Score:(id)sender {
+    UInt8 idx = 0;
+    for (User *player in _userArray) {
+        [_Assignment setSysEx:[player.IP componentsSeparatedByString:@"."]];
+        
+        // Here the Root is the player's score and the ID is the overall score
+        [_Assignment setRoot:score[idx]];
+        [_Assignment setID:score[6]];
+        [_CMU sendMidiData:_Assignment];
+         idx++;
+    }
+}
+
+- (IBAction)Cue:(id)sender {
+    UIButton *cue = (UIButton *)sender;
+    User *player;
+    if ([cue.accessibilityLabel isEqualToString:@"userAFeedBack"] && _userArray.count > 0)
+        player = [_userArray objectAtIndex:0];
+    else if ([cue.accessibilityLabel isEqualToString:@"userBFeedBack"] && _userArray.count > 1)
+        player = [_userArray objectAtIndex:1];
+    else if ([cue.accessibilityLabel isEqualToString:@"userCFeedBack"] && _userArray.count > 2)
+        player = [_userArray objectAtIndex:2];
+    else if ([cue.accessibilityLabel isEqualToString:@"userDFeedBack"] && _userArray.count > 3)
+        player = [_userArray objectAtIndex:3];
+    else if ([cue.accessibilityLabel isEqualToString:@"userEFeedBack"] && _userArray.count > 4)
+        player = [_userArray objectAtIndex:4];
+    else if ([cue.accessibilityLabel isEqualToString:@"userFFeedBack"] && _userArray.count > 5)
+        player = [_userArray objectAtIndex:5];
+    else
+        NSLog(@"No Players Yet!");
+    
+    [_Assignment setSysEx:[player.IP componentsSeparatedByString:@"."]];
+    // Here plus 50 to let the player get that this is for the performance cue.
+    [_Assignment setRoot:(50+cue.tag)];
+    [_CMU sendMidiData:_Assignment];
+}
+
+
 
 #pragma mark - network configuration
 - (void) configureNetworkSessionAndServiceBrowser {
@@ -662,6 +721,13 @@ static void Slide (CGRect Rect, CGPoint currentPoint, UIImageView *ImageView) {
         _InstrumentD.titleLabel.text = @"Instrument";
         _InstrumentE.titleLabel.text = @"Instrument";
         _InstrumentF.titleLabel.text = @"Instrument";
+        _ScoreA.titleLabel.text = @"Score";
+        _ScoreB.titleLabel.text = @"Score";
+        _ScoreC.titleLabel.text = @"Score";
+        _ScoreD.titleLabel.text = @"Score";
+        _ScoreE.titleLabel.text = @"Score";
+        _ScoreF.titleLabel.text = @"Score";
+        _OverallScore.text = @"Overall Score";
     }
 }
 

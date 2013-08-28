@@ -62,7 +62,7 @@ enum {
 @property (assign) UInt8 duration;
 @property (assign) UInt8 channel;
 @property (assign) UInt8 velocity;
-@property (assign) NSArray *SysEx;
+@property (copy) NSArray *SysEx;
 @property (assign) UInt8 Root;
 @property (assign) UInt8 ID;
 
