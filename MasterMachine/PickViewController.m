@@ -39,7 +39,7 @@
 }
 
 
--(void)passTag: (int)Tag{
+-(void)passTag: (UInt8)Tag{
     _Tag = Tag;
 }
 

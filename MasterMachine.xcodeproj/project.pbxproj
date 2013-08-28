@@ -24,6 +24,7 @@
 		90368C0917C3148600654EA3 /* Triangle.png in Resources */ = {isa = PBXBuildFile; fileRef = 90368C0817C3148600654EA3 /* Triangle.png */; };
 		903ACC4E17C33020002FA59B /* Slider.png in Resources */ = {isa = PBXBuildFile; fileRef = 903ACC4D17C33020002FA59B /* Slider.png */; };
 		903ACC5117C3676E002FA59B /* PickViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 903ACC5017C3676E002FA59B /* PickViewController.m */; };
+		90458D8417CDA0A500355405 /* ScaleButtonRed.png in Resources */ = {isa = PBXBuildFile; fileRef = 90458D8317CDA0A500355405 /* ScaleButtonRed.png */; };
 		90495AB817CB738000356839 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 90495AB717CB738000356839 /* User.m */; };
 		9080F44917CB0BEF00B72DD7 /* AssignmentTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 9080F43C17CB0BEF00B72DD7 /* AssignmentTable.m */; };
 		9080F44A17CB0BEF00B72DD7 /* Communicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 9080F43E17CB0BEF00B72DD7 /* Communicator.m */; };
@@ -75,6 +76,7 @@
 		903ACC4D17C33020002FA59B /* Slider.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Slider.png; sourceTree = "<group>"; };
 		903ACC4F17C3676E002FA59B /* PickViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PickViewController.h; sourceTree = "<group>"; };
 		903ACC5017C3676E002FA59B /* PickViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PickViewController.m; sourceTree = "<group>"; };
+		90458D8317CDA0A500355405 /* ScaleButtonRed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ScaleButtonRed.png; sourceTree = "<group>"; };
 		90495AB617CB738000356839 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		90495AB717CB738000356839 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		9080F43B17CB0BEF00B72DD7 /* AssignmentTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssignmentTable.h; sourceTree = "<group>"; };
@@ -220,6 +222,7 @@
 		90ADB12E17C20A2F00463306 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				90458D8317CDA0A500355405 /* ScaleButtonRed.png */,
 				9034291317C47C370008032B /* Go.png */,
 				903ACC4D17C33020002FA59B /* Slider.png */,
 				90F08AAD17C317E200A53704 /* Circle2.png */,
@@ -311,6 +314,7 @@
 				902DF2CF17CC857400A88965 /* Trombone.aupreset in Resources */,
 				902DF2D017CC857400A88965 /* Vibraphone.aupreset in Resources */,
 				902DF2D217CC86C300A88965 /* Sounds in Resources */,
+				90458D8417CDA0A500355405 /* ScaleButtonRed.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

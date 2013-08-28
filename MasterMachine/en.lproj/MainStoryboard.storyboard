@@ -500,12 +500,12 @@
                                     <action selector="PlayerScoreSelector:" destination="2" eventType="touchUpInside" id="7gp-lU-dly"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y5V-3F-kPv">
+                            <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y5V-3F-kPv">
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="2lD-Ee-dNS"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="TrebuchetMS-Italic" family="Trebuchet MS" pointSize="30"/>
-                                <state key="normal" backgroundImage="ScaleButton.png">
+                                <state key="normal" backgroundImage="ScaleButtonRed.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -663,9 +663,9 @@
                                     <action selector="PlayerScoreSelector:" destination="2" eventType="touchUpInside" id="Tf4-sB-Gnk"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z0d-xb-Q1g">
+                            <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z0d-xb-Q1g">
                                 <fontDescription key="fontDescription" name="TrebuchetMS-Italic" family="Trebuchet MS" pointSize="30"/>
-                                <state key="normal" backgroundImage="ScaleButton.png">
+                                <state key="normal" backgroundImage="ScaleButtonRed.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -793,9 +793,9 @@
                                     <action selector="PlayerScoreSelector:" destination="2" eventType="touchUpInside" id="Pth-4J-IHF"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Oqz-GR-u8R">
+                            <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Oqz-GR-u8R">
                                 <fontDescription key="fontDescription" name="TrebuchetMS-Italic" family="Trebuchet MS" pointSize="30"/>
-                                <state key="normal" backgroundImage="ScaleButton.png">
+                                <state key="normal" backgroundImage="ScaleButtonRed.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -923,9 +923,9 @@
                                     <action selector="PlayerScoreSelector:" destination="2" eventType="touchUpInside" id="tfw-nW-axR"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Aq-wC-5xf">
+                            <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Aq-wC-5xf">
                                 <fontDescription key="fontDescription" name="TrebuchetMS-Italic" family="Trebuchet MS" pointSize="30"/>
-                                <state key="normal" backgroundImage="ScaleButton.png">
+                                <state key="normal" backgroundImage="ScaleButtonRed.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -1053,9 +1053,9 @@
                                     <action selector="PlayerScoreSelector:" destination="2" eventType="touchUpInside" id="ghI-i1-8p0"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aNu-fW-8H9">
+                            <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aNu-fW-8H9">
                                 <fontDescription key="fontDescription" name="TrebuchetMS-Italic" family="Trebuchet MS" pointSize="30"/>
-                                <state key="normal" backgroundImage="ScaleButton.png">
+                                <state key="normal" backgroundImage="ScaleButtonRed.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -1183,9 +1183,9 @@
                                     <action selector="PlayerScoreSelector:" destination="2" eventType="touchUpInside" id="iwe-oK-yFY"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K2Q-gN-mFG">
+                            <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K2Q-gN-mFG">
                                 <fontDescription key="fontDescription" name="TrebuchetMS-Italic" family="Trebuchet MS" pointSize="30"/>
-                                <state key="normal" backgroundImage="ScaleButton.png">
+                                <state key="normal" backgroundImage="ScaleButtonRed.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -1852,6 +1852,12 @@
                         <outlet property="UserD" destination="gP4-YC-cH5" id="bxE-qc-KEQ"/>
                         <outlet property="UserE" destination="HeF-jN-iYQ" id="I8h-yb-CBi"/>
                         <outlet property="UserF" destination="TKY-NZ-YPZ" id="7Yf-15-Wfn"/>
+                        <outlet property="UserFieldA" destination="Y5V-3F-kPv" id="vTa-vi-sOP"/>
+                        <outlet property="UserFieldB" destination="Z0d-xb-Q1g" id="hYJ-Dx-0KZ"/>
+                        <outlet property="UserFieldC" destination="Oqz-GR-u8R" id="Q6f-KU-8by"/>
+                        <outlet property="UserFieldD" destination="4Aq-wC-5xf" id="uaA-qS-vqz"/>
+                        <outlet property="UserFieldE" destination="aNu-fW-8H9" id="daf-8H-dlH"/>
+                        <outlet property="UserFieldF" destination="K2Q-gN-mFG" id="m2H-Kf-KgS"/>
                         <outlet property="VolumeA" destination="18h-AS-TBq" id="b4X-X7-gfw"/>
                         <outlet property="VolumeB" destination="FQy-PZ-sub" id="6fV-dG-1Fh"/>
                         <outlet property="VolumeC" destination="MjB-d3-dGT" id="lz1-qs-1zc"/>
@@ -1874,6 +1880,7 @@
         <image name="Circle2.png" width="200" height="200"/>
         <image name="Go.png" width="50" height="50"/>
         <image name="ScaleButton.png" width="100" height="50"/>
+        <image name="ScaleButtonRed.png" width="100" height="50"/>
         <image name="Slider.png" width="20" height="250"/>
         <image name="Triangle.png" width="50" height="50"/>
     </resources>
@@ -1904,6 +1911,12 @@
                 <relationship kind="outlet" name="UserD" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="UserE" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="UserF" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="UserFieldA" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="UserFieldB" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="UserFieldC" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="UserFieldD" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="UserFieldE" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="UserFieldF" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="VolumeA" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="VolumeB" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="VolumeC" candidateClass="UIImageView"/>

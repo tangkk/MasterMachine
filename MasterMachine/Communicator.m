@@ -138,6 +138,7 @@ NSString *StringFromPacket(const MIDIPacket *packet)
     MIDINote *midiNote = midinote;
     NSArray *SysEx = midiNote.SysEx;
     UInt8 Root = midiNote.Root;
+    UInt8 ID = midiNote.ID;
     if (SysEx.count == 8) {
         NSLog(@"Master Send Normal Assignment");
         // Send SysEx Messages. Basically this is the music assignment procedure.
@@ -163,19 +164,14 @@ NSString *StringFromPacket(const MIDIPacket *packet)
         }
         noteSysEx[10] = 0xF7;
         [_midi sendBytes:noteSysEx size:sizeof(noteSysEx)];
-    } else if (SysEx.count == 0) {
-        NSLog(@"Master shut all the players");
-        // All notes off assignment
-        UInt8 noteSysEx[3] = {0xF0, 0x7D, 0xF7};
-        [_midi sendBytes:noteSysEx size:sizeof(noteSysEx)];
     } else if (SysEx.count == 1) {
         NSLog(@"Master stop jamming");
         // All notes off assignment
         UInt8 noteSysEx[4] = {0xF0, 0x7D, 0x00, 0xF7};
         [_midi sendBytes:noteSysEx size:sizeof(noteSysEx)];
     } else if (SysEx.count == 4){
-        NSLog(@"Master broadcast MIDI channel mapping");
-        // Broadcast the MIDI channel mapping
+        NSLog(@"Master broadcast player channel and ID mapping");
+        
         UInt8 ad1 = (UInt8) [SysEx[0] intValue];
         UInt8 ad2 = (UInt8) [SysEx[1] intValue];
         UInt8 ad3 = (UInt8) [SysEx[2] intValue];
@@ -195,7 +191,7 @@ NSString *StringFromPacket(const MIDIPacket *packet)
         NSLog(@"ad1_2: %x, ad2_2: %x, ad3_2: %x, ad4_2: %x", ad1_2, ad2_2, ad3_2, ad4_2);
         NSLog(@"Channel: %d", Root);
         
-        const UInt8 noteSysEx[12] = {0xF0, 0x7D, ad1_1, ad1_2, ad2_1, ad2_2, ad3_1, ad3_2, ad4_1, ad4_2, Root, 0xF7};
+        const UInt8 noteSysEx[13] = {0xF0, 0x7D, ad1_1, ad1_2, ad2_1, ad2_2, ad3_1, ad3_2, ad4_1, ad4_2, Root, ID, 0xF7};
         [_midi sendBytes:noteSysEx size:sizeof(noteSysEx)];
     } else {
         NSLog(@"OOps! Something went wrong!");

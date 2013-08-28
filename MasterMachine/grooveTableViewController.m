@@ -7,17 +7,6 @@
 //
 
 #import "grooveTableViewController.h"
-/*
-static NSString* documents[] =
-{   
-    @"drum44.mp3",
-    @"drum68.mp3",
-    @"Ballad3inGLydian.mp3",
-    @"Ballad4inFIonian.mp3",
-    @"drumshuffle.mp3"
-};
-*/
-#define NUM_DOCS 5
 
 @interface grooveTableViewController ()
 
@@ -98,7 +87,7 @@ static NSString* documents[] =
 {
 //#warning Incomplete method implementation.
    // Return the number of rows in the section.
-    //return NUM_DOCS;
+    
     return self.documentURLs.count;
 }
 

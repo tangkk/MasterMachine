@@ -82,6 +82,12 @@
 @property (strong, nonatomic) IBOutlet UILabel *UserD;
 @property (strong, nonatomic) IBOutlet UILabel *UserE;
 @property (strong, nonatomic) IBOutlet UILabel *UserF;
+@property (strong, nonatomic) IBOutlet UIButton *UserFieldA;
+@property (strong, nonatomic) IBOutlet UIButton *UserFieldB;
+@property (strong, nonatomic) IBOutlet UIButton *UserFieldC;
+@property (strong, nonatomic) IBOutlet UIButton *UserFieldD;
+@property (strong, nonatomic) IBOutlet UIButton *UserFieldE;
+@property (strong, nonatomic) IBOutlet UIButton *UserFieldF;
 
 
 // Network Service Related Declaraion
@@ -111,6 +117,8 @@
 // Users
 @property (readwrite) NSMutableArray *userArray;
 @property (readonly) NSArray *userLabelArray;
+@property (readonly) NSArray *userFieldArray;
+- (void) blinkPlayerAtID:(NSNumber *)ID;
 
 @end
 
@@ -171,6 +179,10 @@
     _ScoreE.titleLabel.textAlignment = NSTextAlignmentCenter;
     _ScoreF.titleLabel.textAlignment = NSTextAlignmentCenter;
     _userLabelArray = [NSArray arrayWithObjects:_UserA, _UserB, _UserC, _UserD, _UserE, _UserF, nil];
+    _userFieldArray = [NSArray arrayWithObjects:_UserFieldA, _UserFieldB, _UserFieldC,_UserFieldD, _UserFieldE, _UserFieldF, nil];
+    for (UIButton *userField in _userFieldArray) {
+        userField.alpha = 0.3;
+    }
     
     _InstrumentPicker = [[PickViewController alloc] initWithStyle:UITableViewStylePlain];
     _InstrumentPicker.delegate = self;
@@ -237,22 +249,37 @@
 #pragma mark - PlayBack routine
 -(void) MIDIPlayback:(const MIDIPacket *)packet {
     NSLog(@"PlaybackDelegate Called");
-    UInt8 noteTypeAndChannel;
-    UInt8 noteNum;
-    UInt8 Velocity;
-    noteTypeAndChannel = (packet->length > 0) ? packet->data[0] : 0;
-    noteNum = (packet->length > 1) ? packet->data[1] : 0;
-    Velocity = (packet->length >2) ? packet->data[2] : 0;
-    NSLog(@"noteNum: %d", noteNum);
-    
-    UInt8 noteType, noteChannel;
-    noteType = noteTypeAndChannel & 0xF0;
-    noteChannel = noteTypeAndChannel & 0x0F;
-    NSLog(@"noteType: %x, noteChannel: %x", noteType, noteChannel);
-    
-    MIDINote *Note = [[MIDINote alloc] initWithNote:noteNum duration:1 channel:noteChannel velocity:Velocity SysEx:0 Root:noteType];
-    if (noteChannel <= 6 && _VI) {
-        [_VI playMIDI:Note];
+    if (packet->length == 3) {
+        NSLog(@"Playback Notes");
+        UInt8 noteTypeAndChannel;
+        UInt8 noteNum;
+        UInt8 Velocity;
+        UInt8 noteType, noteChannel;
+        noteTypeAndChannel = (packet->length > 0) ? packet->data[0] : 0;
+        noteNum = (packet->length > 1) ? packet->data[1] : 0;
+        Velocity = (packet->length >2) ? packet->data[2] : 0;
+        noteType = noteTypeAndChannel & 0xF0;
+        noteChannel = noteTypeAndChannel & 0x0F;
+        NSLog(@"noteNum: %d, noteType: %x, noteChannel: %x", noteNum, noteType, noteChannel);
+        
+        MIDINote *Note = [[MIDINote alloc] initWithNote:noteNum duration:1 channel:noteChannel velocity:Velocity SysEx:0 Root:noteType];
+        if (noteChannel <= 6 && _VI) {
+            [_VI playMIDI:Note];
+        }
+    } else if (packet->length == 4) {
+        NSLog(@"Blink the user field");
+        NSNumber *ID = [NSNumber numberWithChar:packet->data[2]];
+        [self performSelectorInBackground:@selector(blinkPlayerAtID:) withObject:ID];
+    }
+}
+
+- (void) blinkPlayerAtID:(NSNumber *)ID {
+    UInt8 playerID = [ID unsignedCharValue];
+    if (playerID < 6) {
+        NSLog(@"Blink player ID %d", playerID);
+        UIButton *UserField = [_userFieldArray objectAtIndex:playerID];
+        [UIView animateWithDuration:0.1 animations:^{UserField.alpha = 1;}];
+        [UIView animateWithDuration:0.1 delay:0.1 options:UIViewAnimationOptionTransitionCurlUp animations:^{UserField.alpha = 0.3;} completion:NO];
     }
 }
 
@@ -488,12 +515,11 @@ static void Slide (CGRect Rect, CGPoint currentPoint, UIImageView *ImageView) {
     [_LoopPopOver dismissPopoverAnimated:YES];
 }
 
-- (void)selected:(NSString*)selectedName withAccLabel:(NSString *)AccLabel withTag:(int)Tag {
+- (void)selected:(NSString*)selectedName withAccLabel:(NSString *)AccLabel withTag:(UInt8)Tag {
     if ([AccLabel isEqual: @"Score"]) {
         switch (Tag) {
             // Player Score
             case 0:
-                
                 _ScoreA.titleLabel.text = selectedName;
                 break;
             case 1:
@@ -547,6 +573,7 @@ static void Slide (CGRect Rect, CGPoint currentPoint, UIImageView *ImageView) {
                 break;
         }
         
+#pragma mark - player Mapping Broadcast
         // Broadcast the Arr(as SysEx) and the ID(as Root) to let each player know its unique ID and its instrument
         // This is how master can differentiate players
         if (_userArray.count > Tag) {
@@ -555,9 +582,10 @@ static void Slide (CGRect Rect, CGPoint currentPoint, UIImageView *ImageView) {
             [player setInstrument:selectedName];
             [_Assignment setSysEx:[player.IP componentsSeparatedByString:@"."]];
             [_Assignment setRoot:[Channel unsignedCharValue]];
+            [_Assignment setID:Tag];
             [_CMU sendMidiData:_Assignment];
-            [_InstrumentPopOver dismissPopoverAnimated:YES];
         }
+        [_InstrumentPopOver dismissPopoverAnimated:YES];
     }
 }
 
@@ -614,7 +642,7 @@ static void Slide (CGRect Rect, CGPoint currentPoint, UIImageView *ImageView) {
 
 // Keep scanning incomming players all the time, let them join whenever possible
 - (void)scanPlayers {
-    NSLog(@"scanPlayers...");
+    DSLog(@"scanPlayers...");
     NSInteger userArrayIdx = 0;
     
     if (_Session.enabled) {
@@ -625,9 +653,9 @@ static void Slide (CGRect Rect, CGPoint currentPoint, UIImageView *ImageView) {
             }
             NSString *playerName = conn.host.name;
             NSString *IP = conn.host.address;
-            NSLog(@"Player name: %@", playerName);
-            NSLog(@"Player IP: %@", IP);
-            NSLog(@"Player ID: %d", userArrayIdx);
+            DSLog(@"Player name: %@", playerName);
+            DSLog(@"Player IP: %@", IP);
+            DSLog(@"Player ID: %d", userArrayIdx);
             if (_userArray.count < (userArrayIdx + 1) && IP != nil) {
                 // new users comming
                 UILabel *userLabel = [_userLabelArray objectAtIndex:userArrayIdx];
@@ -637,7 +665,6 @@ static void Slide (CGRect Rect, CGPoint currentPoint, UIImageView *ImageView) {
             }
             userArrayIdx++;
         }
-        NSLog(@"\n");
     }
 }
 
