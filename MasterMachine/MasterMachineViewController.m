@@ -118,6 +118,7 @@
 @property (readwrite) NSMutableArray *userArray;
 @property (readonly) NSArray *userLabelArray;
 @property (readonly) NSArray *userFieldArray;
+@property (readwrite) NSMutableArray *playerChannels;
 - (void) blinkPlayerAtID:(NSNumber *)ID;
 
 @end
@@ -161,41 +162,43 @@
     [self ChangeRootandScale];
     _isJamming = false;
     
-    _LoopPicker = [[grooveTableViewController alloc] initWithStyle:UITableViewStylePlain];
-    _LoopPicker.delegate = self;
-    _LoopPopOver = [[UIPopoverController alloc] initWithContentViewController:_LoopPicker];
-    _LoopPopOver.popoverContentSize = CGSizeMake(300, 200);
-    
-    _OverallScorePicker = [[PickViewController alloc] initWithStyle:UITableViewStylePlain];
-    _OverallScorePicker.delegate = self;
-    _ScoreArray = [NSArray arrayWithObjects:@"100", @"95", @"90", @"85", @"80", nil];
-    [_OverallScorePicker passArray:_ScoreArray];
-    _OverallScorePopOver = [[UIPopoverController alloc] initWithContentViewController:_OverallScorePicker];
-    _OverallScorePopOver.popoverContentSize = CGSizeMake(100, 200);
-    _ScoreA.titleLabel.textAlignment = NSTextAlignmentCenter;
-    _ScoreB.titleLabel.textAlignment = NSTextAlignmentCenter;
-    _ScoreC.titleLabel.textAlignment = NSTextAlignmentCenter;
-    _ScoreD.titleLabel.textAlignment = NSTextAlignmentCenter;
-    _ScoreE.titleLabel.textAlignment = NSTextAlignmentCenter;
-    _ScoreF.titleLabel.textAlignment = NSTextAlignmentCenter;
-    _userLabelArray = [NSArray arrayWithObjects:_UserA, _UserB, _UserC, _UserD, _UserE, _UserF, nil];
-    _userFieldArray = [NSArray arrayWithObjects:_UserFieldA, _UserFieldB, _UserFieldC,_UserFieldD, _UserFieldE, _UserFieldF, nil];
-    for (UIButton *userField in _userFieldArray) {
-        userField.alpha = 0.3;
+    if (_LoopPicker == nil) {
+        _LoopPicker = [[grooveTableViewController alloc] initWithStyle:UITableViewStylePlain];
+        _LoopPicker.delegate = self;
+        _LoopPopOver = [[UIPopoverController alloc] initWithContentViewController:_LoopPicker];
+        _LoopPopOver.popoverContentSize = CGSizeMake(300, 200);
     }
     
-    _InstrumentPicker = [[PickViewController alloc] initWithStyle:UITableViewStylePlain];
-    _InstrumentPicker.delegate = self;
-    _InstrumentArray = [NSArray arrayWithObjects:@"Trombone", @"SteelGuitar", @"Guitar", @"Ensemble", @"Piano", @"Vibraphone", nil];
-    [_InstrumentPicker passArray:_InstrumentArray];
-    _InstrumentPopOver = [[UIPopoverController alloc] initWithContentViewController:_InstrumentPicker];
-    _InstrumentPopOver.popoverContentSize = CGSizeMake(200, 200);
-    _InstrumentA.titleLabel.textAlignment = NSTextAlignmentCenter;
-    _InstrumentB.titleLabel.textAlignment = NSTextAlignmentCenter;
-    _InstrumentC.titleLabel.textAlignment = NSTextAlignmentCenter;
-    _InstrumentD.titleLabel.textAlignment = NSTextAlignmentCenter;
-    _InstrumentE.titleLabel.textAlignment = NSTextAlignmentCenter;
-    _InstrumentF.titleLabel.textAlignment = NSTextAlignmentCenter;
+    if (_OverallScorePicker == nil) {
+        _OverallScorePicker = [[PickViewController alloc] initWithStyle:UITableViewStylePlain];
+        _OverallScorePicker.delegate = self;
+        _ScoreArray = [NSArray arrayWithObjects:@"100", @"95", @"90", @"85", @"80", nil];
+        [_OverallScorePicker passArray:_ScoreArray];
+        _OverallScorePopOver = [[UIPopoverController alloc] initWithContentViewController:_OverallScorePicker];
+        _OverallScorePopOver.popoverContentSize = CGSizeMake(100, 200);
+        _ScoreA.titleLabel.textAlignment = NSTextAlignmentCenter;
+        _ScoreB.titleLabel.textAlignment = NSTextAlignmentCenter;
+        _ScoreC.titleLabel.textAlignment = NSTextAlignmentCenter;
+        _ScoreD.titleLabel.textAlignment = NSTextAlignmentCenter;
+        _ScoreE.titleLabel.textAlignment = NSTextAlignmentCenter;
+        _ScoreF.titleLabel.textAlignment = NSTextAlignmentCenter;
+    }
+    
+    if (_InstrumentPicker == nil) {
+        _InstrumentPicker = [[PickViewController alloc] initWithStyle:UITableViewStylePlain];
+        _InstrumentPicker.delegate = self;
+        _InstrumentArray = [NSArray arrayWithObjects:@"Trombone", @"SteelGuitar", @"Guitar", @"Ensemble", @"Piano", @"Vibraphone", nil];
+        [_InstrumentPicker passArray:_InstrumentArray];
+        _InstrumentPopOver = [[UIPopoverController alloc] initWithContentViewController:_InstrumentPicker];
+        _InstrumentPopOver.popoverContentSize = CGSizeMake(200, 200);
+        _InstrumentA.titleLabel.textAlignment = NSTextAlignmentCenter;
+        _InstrumentB.titleLabel.textAlignment = NSTextAlignmentCenter;
+        _InstrumentC.titleLabel.textAlignment = NSTextAlignmentCenter;
+        _InstrumentD.titleLabel.textAlignment = NSTextAlignmentCenter;
+        _InstrumentE.titleLabel.textAlignment = NSTextAlignmentCenter;
+        _InstrumentF.titleLabel.textAlignment = NSTextAlignmentCenter;
+    }
+    
 }
 
 - (void)infrastructureSetup {
@@ -240,7 +243,17 @@
     }
     
     // Users Setup
-    _userArray = [[NSMutableArray alloc] init];
+    if (_userFieldArray == nil) {
+        _userArray = [[NSMutableArray alloc] init];
+        _userLabelArray = [NSArray arrayWithObjects:_UserA, _UserB, _UserC, _UserD, _UserE, _UserF, nil];
+        _userFieldArray = [NSArray arrayWithObjects:_UserFieldA, _UserFieldB, _UserFieldC,_UserFieldD, _UserFieldE, _UserFieldF, nil];
+        _playerChannels = [[NSMutableArray alloc] init];
+        for (UIButton *userField in _userFieldArray) {
+            userField.alpha = 0.3;
+            [_playerChannels addObject:[NSNumber numberWithUnsignedChar:0]];
+        }
+        
+    }
     
     // Backing Manager Setup
     _isLoopPlaying = false;
@@ -287,7 +300,7 @@
     _isLoopPlaying = !_isLoopPlaying;
     if (_isLoopPlaying && _currentTrackURL != nil) {
         _audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:_currentTrackURL error:nil];
-        _audioPlayer.volume = 0.3;
+        _audioPlayer.volume = 0.5;
         [_audioPlayer prepareToPlay];
         [_audioPlayer play];
     } else {
@@ -323,7 +336,7 @@ static void Slide (CGRect Rect, CGPoint currentPoint, UIImageView *ImageView) {
 }
 
 - (void)volumeChanged {
-    CGFloat Volume[6];
+    float Volume[6];
     CGFloat centerY;
     centerY = _VolumeA.center.y;
     Volume[0] = 1 - (centerY - VolumeMin) / (VolumeMax - VolumeMin);
@@ -337,6 +350,16 @@ static void Slide (CGRect Rect, CGPoint currentPoint, UIImageView *ImageView) {
     Volume[4] = 1 - (centerY - VolumeMin) / (VolumeMax - VolumeMin);
     centerY = _VolumeF.center.y;
     Volume[5] = 1 - (centerY - VolumeMin) / (VolumeMax - VolumeMin);
+    
+    if (_VI) {
+        for (UInt8 i = 0; i < 6; i++) {
+            UInt8 Channel = [[_playerChannels objectAtIndex:i] unsignedCharValue];
+            NSLog(@"idx %d", i);
+            NSLog(@"Volume %f", 3*Volume[i]);
+            NSLog(@"Channel %d", Channel);
+            [_VI setMixerInput: Channel gain:(AudioUnitParameterValue)3*Volume[i]];
+        }
+    }
     
     UInt8 userIdx = 0;
     for (User *user in _userArray) {
@@ -584,6 +607,8 @@ static void Slide (CGRect Rect, CGPoint currentPoint, UIImageView *ImageView) {
             [_Assignment setRoot:[Channel unsignedCharValue]];
             [_Assignment setID:Tag];
             [_CMU sendMidiData:_Assignment];
+            [_playerChannels replaceObjectAtIndex:Tag withObject:Channel];
+            [self volumeChanged];
         }
         [_InstrumentPopOver dismissPopoverAnimated:YES];
     }
