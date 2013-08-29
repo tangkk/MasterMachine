@@ -95,7 +95,7 @@
 // Network Service Related Declaraion
 @property (strong, nonatomic) NSMutableArray *services;
 @property (strong, nonatomic) NSNetServiceBrowser *serviceBrowser;
-@property (readwrite) MIDINetworkSession *Session;
+@property (strong, nonatomic) MIDINetworkSession *Session;
 @property (nonatomic, retain) NSTimer * rescanTimer;
 
 // Three main button Labels
@@ -103,7 +103,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *Jam;
 
 // Communication Infrastructure
-@property (readwrite) Communicator *CMU;
+@property (strong, nonatomic) Communicator *CMU;
 @property (readwrite) MIDINote *Assignment;
 @property (readonly) NoteNumDict *Dict;
 @property (readonly) AssignmentTable *AST;
@@ -162,7 +162,6 @@
     _Root = @"C";
     _Scale = @"IONIAN";
     [self ChangeRootandScale];
-    _isJamming = false;
     
     if (_LoopPicker == nil) {
         _LoopPicker = [[grooveTableViewController alloc] initWithStyle:UITableViewStylePlain];
@@ -259,6 +258,8 @@
     
     // Backing Manager Setup
     _isLoopPlaying = false;
+    
+    _isJamming = false;
 }
 
 #pragma mark - PlayBack routine
@@ -429,7 +430,6 @@ static void Slide (CGRect Rect, CGPoint currentPoint, UIImageView *ImageView) {
         default:
             break;
     }
-    [self ChangeRootandScale];
 }
 
 - (IBAction)ScaleChange:(id)sender {
@@ -513,6 +513,9 @@ static void Slide (CGRect Rect, CGPoint currentPoint, UIImageView *ImageView) {
         _ScoreD.titleLabel.text = @"Score";
         _ScoreE.titleLabel.text = @"Score";
         _ScoreF.titleLabel.text = @"Score";
+        for (UInt8 i = 0; i < 7; i++) {
+            score[i] = 0;
+        }
     }
     
 }

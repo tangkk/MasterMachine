@@ -2064,6 +2064,16 @@
         <class className="MasterMachineViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MasterMachineViewController.h"/>
             <relationships>
+                <relationship kind="action" name="Cue:"/>
+                <relationship kind="action" name="Host:"/>
+                <relationship kind="action" name="Jam:"/>
+                <relationship kind="action" name="RootChange:"/>
+                <relationship kind="action" name="ScaleChange:"/>
+                <relationship kind="action" name="Score:"/>
+                <relationship kind="action" name="instrumentSelector:"/>
+                <relationship kind="action" name="loopPlay:"/>
+                <relationship kind="action" name="loopSelector:"/>
+                <relationship kind="action" name="scoreSelector:"/>
                 <relationship kind="outlet" name="Host" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="InstrumentA" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="InstrumentB" candidateClass="UIButton"/>
