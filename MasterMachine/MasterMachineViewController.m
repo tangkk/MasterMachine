@@ -29,8 +29,10 @@
     CGRect RectF;
     
     UInt8 score[7];
+    UInt8 scanCounter;
     
     CGFloat VolumeMax, VolumeMin;
+    
 }
 
 // View controller elements
@@ -97,6 +99,7 @@
 @property (strong, nonatomic) NSNetServiceBrowser *serviceBrowser;
 @property (strong, nonatomic) MIDINetworkSession *Session;
 @property (nonatomic, retain) NSTimer * rescanTimer;
+@property (strong, nonatomic) NSMutableSet *IPSet;
 
 // Three main button Labels
 @property (strong, nonatomic) IBOutlet UILabel *Host;
@@ -135,6 +138,7 @@
     [self configureNetworkSessionAndServiceBrowser];
     [self infrastructureSetup];
     self.rescanTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(scanPlayers) userInfo:nil repeats:YES];
+    scanCounter = 0;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -253,7 +257,9 @@
             userField.alpha = 0.3;
             [_playerChannels addObject:[NSNumber numberWithUnsignedChar:0]];
         }
-        
+        for (UInt8 i = 0; i < 7; i++) {
+            score[i] = 60;
+        }
     }
     
     // Backing Manager Setup
@@ -513,9 +519,9 @@ static void Slide (CGRect Rect, CGPoint currentPoint, UIImageView *ImageView) {
         _ScoreD.titleLabel.text = @"Score";
         _ScoreE.titleLabel.text = @"Score";
         _ScoreF.titleLabel.text = @"Score";
-        for (UInt8 i = 0; i < 7; i++) {
-            score[i] = 0;
-        }
+        _Root = @"C";
+        _Scale = @"IONIAN";
+        [self ChangeRootandScale];
     }
     
 }
@@ -533,22 +539,26 @@ static void Slide (CGRect Rect, CGPoint currentPoint, UIImageView *ImageView) {
 
 - (IBAction)scoreSelector:(id)sender {
     UIButton *Selector = (UIButton *)sender;
-    [_OverallScorePicker passAccLabel:Selector.accessibilityLabel];
-    [_OverallScorePicker passTag:Selector.tag];
-    CGPoint origin = Selector.frame.origin;
-    CGSize size = Selector.frame.size;
-    CGRect rect = CGRectMake(origin.x + size.width/2, origin.y + size.height/2, 1, 1);
-    [_OverallScorePopOver presentPopoverFromRect:rect inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+    if (Selector.tag < _userArray.count || Selector.tag == 6) {
+        [_OverallScorePicker passAccLabel:Selector.accessibilityLabel];
+        [_OverallScorePicker passTag:Selector.tag];
+        CGPoint origin = Selector.frame.origin;
+        CGSize size = Selector.frame.size;
+        CGRect rect = CGRectMake(origin.x + size.width/2, origin.y + size.height/2, 1, 1);
+        [_OverallScorePopOver presentPopoverFromRect:rect inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+    }
 }
 
 - (IBAction)instrumentSelector:(id)sender {
     UIButton *Selector = (UIButton *)sender;
-    [_InstrumentPicker passAccLabel:Selector.accessibilityLabel];
-    [_InstrumentPicker passTag:Selector.tag];
-    CGPoint origin = Selector.frame.origin;
-    CGSize size = Selector.frame.size;
-    CGRect rect = CGRectMake(origin.x + size.width/2, origin.y + size.height/2, 1, 1);
-    [_InstrumentPopOver presentPopoverFromRect:rect inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+    if (Selector.tag < _userArray.count) {
+        [_InstrumentPicker passAccLabel:Selector.accessibilityLabel];
+        [_InstrumentPicker passTag:Selector.tag];
+        CGPoint origin = Selector.frame.origin;
+        CGSize size = Selector.frame.size;
+        CGRect rect = CGRectMake(origin.x + size.width/2, origin.y + size.height/2, 1, 1);
+        [_InstrumentPopOver presentPopoverFromRect:rect inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+    }
 }
 
 -(void) selectedgroove:(NSURL*)grooveURL withName:(NSString *)fileName{
@@ -564,7 +574,6 @@ static void Slide (CGRect Rect, CGPoint currentPoint, UIImageView *ImageView) {
             // Player Score
             case 0:
                 _ScoreA.titleLabel.text = selectedName;
-                score[Tag] = [selectedName integerValue];
                 break;
             case 1:
                 _ScoreB.titleLabel.text = selectedName;
@@ -627,7 +636,7 @@ static void Slide (CGRect Rect, CGPoint currentPoint, UIImageView *ImageView) {
             [player setInstrument:selectedName];
             [_Assignment setSysEx:[player.IP componentsSeparatedByString:@"."]];
             [_Assignment setRoot:[Channel unsignedCharValue]];
-            [_Assignment setID:Tag];
+            [_Assignment setID:player.userid];
             [_CMU sendMidiData:_Assignment];
             [_playerChannels replaceObjectAtIndex:Tag withObject:Channel];
             [self volumeChanged];
@@ -638,42 +647,46 @@ static void Slide (CGRect Rect, CGPoint currentPoint, UIImageView *ImageView) {
 
 #pragma mark - score and other feedback
 - (IBAction)Score:(id)sender {
-    UInt8 idx = 0;
-    for (User *player in _userArray) {
-        [_Assignment setSysEx:[player.IP componentsSeparatedByString:@"."]];
-        
-        // Here the Root is the player's score and the ID is the overall score
-        [_Assignment setRoot:score[idx]];
-        [_Assignment setID:score[6]];
-        [_CMU sendMidiData:_Assignment];
-         idx++;
+    if (_isJamming) {
+        UInt8 idx = 0;
+        for (User *player in _userArray) {
+            [_Assignment setSysEx:[player.IP componentsSeparatedByString:@"."]];
+            
+            // Here the Root is the player's score and the ID is the overall score
+            [_Assignment setRoot:score[idx]];
+            [_Assignment setID:score[6]];
+            [_CMU sendMidiData:_Assignment];
+            idx++;
+        }
     }
 }
 
 - (IBAction)Cue:(id)sender {
-    UIButton *cue = (UIButton *)sender;
-    User *player;
-    if ([cue.accessibilityLabel isEqualToString:@"userAFeedBack"] && _userArray.count > 0)
-        player = [_userArray objectAtIndex:0];
-    else if ([cue.accessibilityLabel isEqualToString:@"userBFeedBack"] && _userArray.count > 1)
-        player = [_userArray objectAtIndex:1];
-    else if ([cue.accessibilityLabel isEqualToString:@"userCFeedBack"] && _userArray.count > 2)
-        player = [_userArray objectAtIndex:2];
-    else if ([cue.accessibilityLabel isEqualToString:@"userDFeedBack"] && _userArray.count > 3)
-        player = [_userArray objectAtIndex:3];
-    else if ([cue.accessibilityLabel isEqualToString:@"userEFeedBack"] && _userArray.count > 4)
-        player = [_userArray objectAtIndex:4];
-    else if ([cue.accessibilityLabel isEqualToString:@"userFFeedBack"] && _userArray.count > 5)
-        player = [_userArray objectAtIndex:5];
-    else
-        NSLog(@"No Players Yet!");
-    
-    [_Assignment setSysEx:[player.IP componentsSeparatedByString:@"."]];
-    // Here plus 50 to let the player get that this is for the performance cue.
-    [_Assignment setRoot:(50+cue.tag)];
-    [_CMU sendMidiData:_Assignment];
+    if (_isJamming) {
+        UIButton *cue = (UIButton *)sender;
+        User *player;
+        if ([cue.accessibilityLabel isEqualToString:@"userAFeedBack"] && _userArray.count > 0)
+            player = [_userArray objectAtIndex:0];
+        else if ([cue.accessibilityLabel isEqualToString:@"userBFeedBack"] && _userArray.count > 1)
+            player = [_userArray objectAtIndex:1];
+        else if ([cue.accessibilityLabel isEqualToString:@"userCFeedBack"] && _userArray.count > 2)
+            player = [_userArray objectAtIndex:2];
+        else if ([cue.accessibilityLabel isEqualToString:@"userDFeedBack"] && _userArray.count > 3)
+            player = [_userArray objectAtIndex:3];
+        else if ([cue.accessibilityLabel isEqualToString:@"userEFeedBack"] && _userArray.count > 4)
+            player = [_userArray objectAtIndex:4];
+        else if ([cue.accessibilityLabel isEqualToString:@"userFFeedBack"] && _userArray.count > 5)
+            player = [_userArray objectAtIndex:5];
+        else
+            NSLog(@"Player not exist Yet!");
+        if (player) {
+            [_Assignment setSysEx:[player.IP componentsSeparatedByString:@"."]];
+            // Here plus 50 to let the player get that this is for the performance cue.
+            [_Assignment setRoot:(50+cue.tag)];
+            [_CMU sendMidiData:_Assignment];
+        }
+    }
 }
-
 
 
 #pragma mark - network configuration
@@ -689,6 +702,9 @@ static void Slide (CGRect Rect, CGPoint currentPoint, UIImageView *ImageView) {
     [self.serviceBrowser setDelegate:self];
     // starting scanning for services (won't stop until stop() is called)
     [self.serviceBrowser searchForServicesOfType:MIDINetworkBonjourServiceType inDomain:@"local."];
+    
+    // Variable for device scanning
+    _IPSet = [[NSMutableSet alloc] init];
 }
 
 - (void) netServiceBrowser:(NSNetServiceBrowser*)serviceBrowser didFindService:(NSNetService *)service moreComing:(BOOL)moreComing {
@@ -712,9 +728,12 @@ static void Slide (CGRect Rect, CGPoint currentPoint, UIImageView *ImageView) {
     if (_Session.enabled) {
         _Host.textColor = [UIColor grayColor];
     } else {
+        // reset everything
         _Host.textColor = [UIColor whiteColor];
         // Clear the user arrays and labels
         [_userArray removeAllObjects];
+        [_IPSet removeAllObjects];
+        
         for (UILabel *Label in _userLabelArray) {
             Label.textColor = [UIColor whiteColor];
         }
@@ -731,34 +750,55 @@ static void Slide (CGRect Rect, CGPoint currentPoint, UIImageView *ImageView) {
         _ScoreE.titleLabel.text = @"Score";
         _ScoreF.titleLabel.text = @"Score";
         _OverallScore.text = @"Overall Score";
+        _Root = @"C";
+        _Scale = @"IONIAN";
+        [self ChangeRootandScale];
     }
 }
 
 // Keep scanning incomming players all the time, let them join whenever possible
 - (void)scanPlayers {
-    DSLog(@"scanPlayers...");
-    NSInteger userArrayIdx = 0;
     
+    // If is already jamming now, send the broadcast the assignment again to let the new comer know
+    if (_isJamming && scanCounter++ == 4) {
+        scanCounter = 0;
+        [_Assignment setSysEx:[_AST.MusicAssignment objectForKey:_Scale]];
+        [_Assignment setRoot:_RootNum];
+        [_CMU sendMidiData:_Assignment];
+    }
+    
+    DSLog(@"scanPlayers...");
     if (_Session.enabled) {
         for (MIDINetworkConnection *conn in _Session.connections) {
-            // no more than 6 players is allowed for the moment!!
-            if (userArrayIdx > 5) {
-                break;
-            }
             NSString *playerName = conn.host.name;
+            NSLog(@"Player name: %@", playerName);
+            
             NSString *IP = conn.host.address;
-            DSLog(@"Player name: %@", playerName);
-            DSLog(@"Player IP: %@", IP);
-            DSLog(@"Player ID: %d", userArrayIdx);
-            if (_userArray.count < (userArrayIdx + 1) && IP != nil) {
-                // new users comming
-                UILabel *userLabel = [_userLabelArray objectAtIndex:userArrayIdx];
-                User *user = [[User alloc] initWithUserName:playerName ID:userArrayIdx IP:IP Instrument:@"unknown"];
-                [_userArray addObject:user];
-                userLabel.textColor = [UIColor grayColor];
+            if (IP != nil) {
+                if ([_IPSet containsObject:IP]) {
+                    continue;
+                } else {
+                    // new users comming
+                    [_IPSet addObject:IP];
+                    NSLog(@"Player IP: %@", IP);
+                    UInt8 ID = _userArray.count;
+                    User *user = [[User alloc] initWithUserName:playerName ID:ID IP:IP Instrument:@"unknown"];
+                    [_userArray addObject:user];
+                    UILabel *userLabel = [_userLabelArray objectAtIndex:ID];
+                    userLabel.textColor = [UIColor grayColor];
+                    
+                    // no more than 6 players is allowed for the moment!!
+                    if (ID == 5) {
+                        break;
+                    }
+                }
             }
-            userArrayIdx++;
         }
+    }
+    
+    for (int i = 0 ; i < _userArray.count; i++) {
+        User *u = [_userArray objectAtIndex:i];
+        NSLog(@"userArray player %d, is with IP %@", i, u.IP);
     }
 }
 

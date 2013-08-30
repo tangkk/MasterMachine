@@ -31,16 +31,16 @@ NSArray *None;
     }
     
     // In the form of MIDI SysEx Message
-    Ionian = [[NSArray alloc] initWithObjects:@"C4", @"D4", @"E4", @"F4", @"G4", @"A4", @"B4", @"C5", nil];
-    Dorian = [[NSArray alloc] initWithObjects:@"C4", @"D4", @"D#4", @"F4", @"G4", @"A4", @"A#4", @"C5", nil];
-    Phrygian = [[NSArray alloc] initWithObjects:@"C4", @"C#4", @"D#4", @"F4", @"G4", @"G#4", @"A#4", @"C5", nil];
-    Lydian = [[NSArray alloc] initWithObjects:@"C4", @"D4", @"E4", @"F#4", @"G4", @"A4", @"B4", @"C5", nil];
-    Mixolydian = [[NSArray alloc] initWithObjects:@"C4", @"D4", @"E4", @"F4", @"G4", @"A4", @"A#4", @"C5", nil];
-    Aeolian = [[NSArray alloc] initWithObjects:@"C4", @"D4", @"D#4", @"F4", @"G4", @"G#4", @"A#4", @"C5", nil];
-    Locrian = [[NSArray alloc] initWithObjects:@"C4", @"C#4", @"D#4", @"F4", @"F#4", @"G#4", @"A#4", @"C5", nil];
-    Pentatonic = [[NSArray alloc] initWithObjects:@"C4", @"D4", @"E4", @"G4", @"A4", @"C5", @"D5", @"E5", nil];
-    Blues = [[NSArray alloc] initWithObjects:@"C4", @"D4", @"D#4", @"E4", @"G4", @"G#4", @"A4", @"C5", nil];
-    Harmonic = [[NSArray alloc] initWithObjects:@"C4", @"D4", @"D#4", @"F4", @"G4", @"G#4", @"B4", @"C5", nil];
+    Ionian = [[NSArray alloc] initWithObjects:@"C5", @"D5", @"E5", @"F5", @"G5", @"A5", @"B5", @"C6", nil];
+    Dorian = [[NSArray alloc] initWithObjects:@"C5", @"D5", @"D#5", @"F5", @"G5", @"A5", @"A#5", @"C6", nil];
+    Phrygian = [[NSArray alloc] initWithObjects:@"C5", @"C#5", @"D#5", @"F5", @"G5", @"G#5", @"A#5", @"C6", nil];
+    Lydian = [[NSArray alloc] initWithObjects:@"C5", @"D5", @"E5", @"F#5", @"G5", @"A5", @"B5", @"C6", nil];
+    Mixolydian = [[NSArray alloc] initWithObjects:@"C5", @"D5", @"E5", @"F5", @"G5", @"A5", @"A#5", @"C6", nil];
+    Aeolian = [[NSArray alloc] initWithObjects:@"C5", @"D5", @"D#5", @"F5", @"G5", @"G#5", @"A#5", @"C6", nil];
+    Locrian = [[NSArray alloc] initWithObjects:@"C5", @"C#5", @"D#5", @"F5", @"F#5", @"G#5", @"A#5", @"C6", nil];
+    Pentatonic = [[NSArray alloc] initWithObjects:@"C5", @"D5", @"E5", @"G5", @"A5", @"C6", @"D6", @"E6", nil];
+    Blues = [[NSArray alloc] initWithObjects:@"C5", @"D5", @"D#5", @"E5", @"G5", @"G#5", @"A5", @"C6", nil];
+    Harmonic = [[NSArray alloc] initWithObjects:@"C5", @"D5", @"D#5", @"F5", @"G5", @"G#5", @"B5", @"C6", nil];
     None = [[NSArray alloc] initWithObjects:@"C0", nil];
     
     _MusicAssignment = @{

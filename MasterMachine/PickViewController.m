@@ -3,7 +3,7 @@
 //  WIJAM
 //
 //  Created by Michelle Wong SU on 4/29/13.
-//  Copyright (c) 2013 Michelle Wong SU. All rights reserved.
+//  Copyright (c) 2013 tangkk, Philip Ng, Bony. All rights reserved.
 //
 
 #import "PickViewController.h"
