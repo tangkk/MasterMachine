@@ -35,7 +35,7 @@
     
 }
 
-// View controller elements
+/* View controller elements */
 @property (strong, nonatomic) IBOutlet UIImageView *VolumeA;
 @property (strong, nonatomic) IBOutlet UIImageView *VolumeB;
 @property (strong, nonatomic) IBOutlet UIImageView *VolumeC;
@@ -53,10 +53,6 @@
 @property (strong, nonatomic) IBOutlet UILabel *LoopName;
 @property (strong, nonatomic) IBOutlet UILabel *OverallScore;
 @property (strong, nonatomic) IBOutlet UILabel *RootScale;
-@property (assign) UInt8 RootNum;
-@property (copy) NSString *Root;
-@property (copy) NSString *Scale;
-@property (assign) BOOL isJamming;
 
 @property (strong, nonatomic) UIPopoverController *LoopPopOver;
 @property (strong, nonatomic) UIPopoverController *OverallScorePopOver;
@@ -93,33 +89,38 @@
 @property (strong, nonatomic) IBOutlet UIButton *UserFieldE;
 @property (strong, nonatomic) IBOutlet UIButton *UserFieldF;
 
+/* Jamming Controls */
+@property (assign) UInt8 RootNum;
+@property (copy) NSString *Root;
+@property (copy) NSString *Scale;
+@property (assign) BOOL isJamming;
 
-// Network Service Related Declaraion
+/* Network Service Related Declaraion */
 @property (strong, nonatomic) NSMutableArray *services;
 @property (strong, nonatomic) NSNetServiceBrowser *serviceBrowser;
 @property (strong, nonatomic) MIDINetworkSession *Session;
 @property (nonatomic, retain) NSTimer * rescanTimer;
 @property (strong, nonatomic) NSMutableSet *IPSet;
 
-// Three main button Labels
+/* Big Circle button Labels */
 @property (strong, nonatomic) IBOutlet UILabel *Host;
 @property (strong, nonatomic) IBOutlet UILabel *Jam;
 
-// Communication Infrastructure
+/* Communication Infrastructure */
 @property (strong, nonatomic) Communicator *CMU;
 @property (readwrite) MIDINote *Assignment;
 @property (readonly) NoteNumDict *Dict;
 @property (readonly) AssignmentTable *AST;
 
-// Virtual Instrument
+/* Virtual Instrument */
 @property (readonly) VirtualInstrument *VI;
 
-// Backing Manager
+/* Backing Manager + Loop Player */
 @property (readwrite) NSURL *currentTrackURL;
 @property (readonly) AVAudioPlayer *audioPlayer;
 @property (readwrite) BOOL isLoopPlaying;
 
-// Users
+/* Users related */
 @property (readwrite) NSMutableArray *userArray;
 @property (readonly) NSArray *userLabelArray;
 @property (readonly) NSArray *userFieldArray;
@@ -142,6 +143,7 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:NO];
     [self viewSetup];
 }
 
@@ -212,10 +214,10 @@
         [_CMU setPlaybackDelegate:self];
     }
     IF_IOS_HAS_COREMIDI(
-                        if (_CMU.midi == nil) {
-                            _CMU.midi = [[PGMidi alloc] init];
-                        }
-                        )
+        if (_CMU.midi == nil) {
+            _CMU.midi = [[PGMidi alloc] init];
+        }
+    )
     if (_VI == nil) {
         _VI = [[VirtualInstrument alloc] init];
         [_VI setInstrument:@"Trombone" withInstrumentID:Trombone]; //This is the groove instrument
@@ -264,7 +266,6 @@
     
     // Backing Manager Setup
     _isLoopPlaying = false;
-    
     _isJamming = false;
 }
 
@@ -678,7 +679,7 @@ static void Slide (CGRect Rect, CGPoint currentPoint, UIImageView *ImageView) {
         else if ([cue.accessibilityLabel isEqualToString:@"userFFeedBack"] && _userArray.count > 5)
             player = [_userArray objectAtIndex:5];
         else
-            NSLog(@"Player not exist Yet!");
+            NSLog(@"Player doesn't exist Yet!");
         if (player) {
             [_Assignment setSysEx:[player.IP componentsSeparatedByString:@"."]];
             // Here plus 50 to let the player get that this is for the performance cue.
@@ -690,6 +691,7 @@ static void Slide (CGRect Rect, CGPoint currentPoint, UIImageView *ImageView) {
 
 
 #pragma mark - network configuration
+/****** Thanks for CX's participation in this part ******/
 - (void) configureNetworkSessionAndServiceBrowser {
     // configure network session
     _Session = [MIDINetworkSession defaultSession];
@@ -760,6 +762,7 @@ static void Slide (CGRect Rect, CGPoint currentPoint, UIImageView *ImageView) {
 - (void)scanPlayers {
     
     // If is already jamming now, send the broadcast the assignment again to let the new comer know
+    // wait a while for the player's opening the communication channel
     if (_isJamming && scanCounter++ == 4) {
         scanCounter = 0;
         [_Assignment setSysEx:[_AST.MusicAssignment objectForKey:_Scale]];

@@ -1,6 +1,6 @@
 //
-//  MIDIMessage.h
-//  Tuner
+//  MIDINote.h
+//  MasterMachine
 //
 //  Created by tangkk on 12/3/13.
 //  Copyright (c) 2013 tangkk. All rights reserved.

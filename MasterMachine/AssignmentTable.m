@@ -1,6 +1,6 @@
 //
 //  AssignmentTable.m
-//  Tuner
+//  MasterMachine
 //
 //  Created by tangkk on 19/4/13.
 //  Copyright (c) 2013 tangkk. All rights reserved.
@@ -30,7 +30,7 @@ NSArray *None;
         return nil;
     }
     
-    // In the form of MIDI SysEx Message
+    //FIXME: whether should I use up to 6 or 5? Whether should I let users change octaves in simple mode?
     Ionian = [[NSArray alloc] initWithObjects:@"C5", @"D5", @"E5", @"F5", @"G5", @"A5", @"B5", @"C6", nil];
     Dorian = [[NSArray alloc] initWithObjects:@"C5", @"D5", @"D#5", @"F5", @"G5", @"A5", @"A#5", @"C6", nil];
     Phrygian = [[NSArray alloc] initWithObjects:@"C5", @"C#5", @"D#5", @"F5", @"G5", @"G#5", @"A#5", @"C6", nil];

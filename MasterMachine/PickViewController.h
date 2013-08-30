@@ -1,9 +1,9 @@
 //
 //  PickViewController.h
-//  WIJAM
+//  MasterMachine
 //
-//  Created by Michelle Wong SU on 4/29/13.
-//  Copyright (c) 2013 tangkk, Philip Ng, Bony. All rights reserved.
+//  Created by tangkk, Philip Ng, Bony, CX and Cayden on 4/29/13.
+//  Copyright (c) 2013 tangkk, Philip Ng, Bony, CX and Cayden. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

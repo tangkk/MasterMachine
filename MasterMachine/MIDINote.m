@@ -1,14 +1,12 @@
 //
-//  MIDIMessage.m
-//  Tuner
+//  MIDINote.m
+//  MasterMachine
 //
 //  Created by tangkk on 12/3/13.
 //  Copyright (c) 2013 tangkk. All rights reserved.
 //
 
 #import "MIDINote.h"
-
-// Private Declaration
 @interface MIDINote ()
 
 @end

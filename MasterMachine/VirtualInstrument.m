@@ -1,6 +1,6 @@
 //
 //  AUGraphConsole.m
-//  Tuner
+//  MasterMachine
 //
 //  Created by tangkk on 18/3/13.
 //  Copyright (c) 2013 tangkk. All rights reserved.

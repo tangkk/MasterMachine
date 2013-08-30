@@ -1,8 +1,8 @@
 ////  grooveTableViewController.h
-//  WIJAM-MASTER
+//  MasterMachine
 //
-//  Created by Michelle Wong SU on 4/28/13.
-//  Copyright (c) 2013 Michelle Wong SU. All rights reserved.
+//  Created by tangkk, Philip Ng, Bony, CX and Cayden on 4/28/13.
+//  Copyright (c) 2013 tangkk, Philip Ng, Bony, CX and Cayden. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -11,13 +11,13 @@
 
 @protocol SelectedGrooveDelegate <NSObject>
 @required
+
 -(void) selectedgroove:(NSURL*)grooveURL withName:(NSString *)fileName;
+
 @end
 
 @interface grooveTableViewController : UITableViewController <DirectoryWatcherDelegate, UIDocumentInteractionControllerDelegate>
-//@property (nonatomic, strong) NSMutableArray *grooveArray;
-@property (nonatomic, weak) id <SelectedGrooveDelegate> delegate;
 
-//-(void)passArray:(NSMutableArray *)grooveURLs;
+@property (nonatomic, weak) id <SelectedGrooveDelegate> delegate;
 
 @end
