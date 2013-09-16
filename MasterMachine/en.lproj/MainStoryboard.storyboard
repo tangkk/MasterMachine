@@ -574,7 +574,7 @@
                                     <constraint firstAttribute="height" constant="30" id="35k-bQ-eES"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="TrebuchetMS-Italic" family="Trebuchet MS" pointSize="20"/>
-                                <state key="normal" title="OK" backgroundImage="ScaleButton.png">
+                                <state key="normal" title="Solo" backgroundImage="ScaleButton.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -608,7 +608,7 @@
                                     <constraint firstAttribute="height" constant="30" id="Oud-Wk-wmR"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="TrebuchetMS-Italic" family="Trebuchet MS" pointSize="20"/>
-                                <state key="normal" title="Low" backgroundImage="ScaleButton.png">
+                                <state key="normal" title="Ready" backgroundImage="ScaleButton.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -756,7 +756,7 @@
                             <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H48-8t-I0k">
                                 <accessibility key="accessibilityConfiguration" label="userBFeedBack"/>
                                 <fontDescription key="fontDescription" name="TrebuchetMS-Italic" family="Trebuchet MS" pointSize="20"/>
-                                <state key="normal" title="OK" backgroundImage="ScaleButton.png">
+                                <state key="normal" title="Solo" backgroundImage="ScaleButton.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -784,7 +784,7 @@
                             <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fap-wE-4h3">
                                 <accessibility key="accessibilityConfiguration" label="userBFeedBack"/>
                                 <fontDescription key="fontDescription" name="TrebuchetMS-Italic" family="Trebuchet MS" pointSize="20"/>
-                                <state key="normal" title="Low" backgroundImage="ScaleButton.png">
+                                <state key="normal" title="Ready" backgroundImage="ScaleButton.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -918,7 +918,7 @@
                             <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h0z-kX-s56">
                                 <accessibility key="accessibilityConfiguration" label="userCFeedBack"/>
                                 <fontDescription key="fontDescription" name="TrebuchetMS-Italic" family="Trebuchet MS" pointSize="20"/>
-                                <state key="normal" title="OK" backgroundImage="ScaleButton.png">
+                                <state key="normal" title="Solo" backgroundImage="ScaleButton.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -946,7 +946,7 @@
                             <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N0D-e8-fLg">
                                 <accessibility key="accessibilityConfiguration" label="userCFeedBack"/>
                                 <fontDescription key="fontDescription" name="TrebuchetMS-Italic" family="Trebuchet MS" pointSize="20"/>
-                                <state key="normal" title="Low" backgroundImage="ScaleButton.png">
+                                <state key="normal" title="Ready" backgroundImage="ScaleButton.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -1080,7 +1080,7 @@
                             <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Xa-U5-609">
                                 <accessibility key="accessibilityConfiguration" label="userDFeedBack"/>
                                 <fontDescription key="fontDescription" name="TrebuchetMS-Italic" family="Trebuchet MS" pointSize="20"/>
-                                <state key="normal" title="OK" backgroundImage="ScaleButton.png">
+                                <state key="normal" title="Solo" backgroundImage="ScaleButton.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -1108,7 +1108,7 @@
                             <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T9Z-sc-fwj">
                                 <accessibility key="accessibilityConfiguration" label="userDFeedBack"/>
                                 <fontDescription key="fontDescription" name="TrebuchetMS-Italic" family="Trebuchet MS" pointSize="20"/>
-                                <state key="normal" title="Low" backgroundImage="ScaleButton.png">
+                                <state key="normal" title="Ready" backgroundImage="ScaleButton.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -1242,7 +1242,7 @@
                             <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EBD-gg-sCW">
                                 <accessibility key="accessibilityConfiguration" label="userEFeedBack"/>
                                 <fontDescription key="fontDescription" name="TrebuchetMS-Italic" family="Trebuchet MS" pointSize="20"/>
-                                <state key="normal" title="OK" backgroundImage="ScaleButton.png">
+                                <state key="normal" title="Solo" backgroundImage="ScaleButton.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -1270,7 +1270,7 @@
                             <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SMk-c5-2ck">
                                 <accessibility key="accessibilityConfiguration" label="userEFeedBack"/>
                                 <fontDescription key="fontDescription" name="TrebuchetMS-Italic" family="Trebuchet MS" pointSize="20"/>
-                                <state key="normal" title="Low" backgroundImage="ScaleButton.png">
+                                <state key="normal" title="Ready" backgroundImage="ScaleButton.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -1404,7 +1404,7 @@
                             <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="11M-yg-UXp">
                                 <accessibility key="accessibilityConfiguration" label="userFFeedBack"/>
                                 <fontDescription key="fontDescription" name="TrebuchetMS-Italic" family="Trebuchet MS" pointSize="20"/>
-                                <state key="normal" title="OK" backgroundImage="ScaleButton.png">
+                                <state key="normal" title="Solo" backgroundImage="ScaleButton.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -1432,7 +1432,7 @@
                             <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zqI-ES-pim">
                                 <accessibility key="accessibilityConfiguration" label="userFFeedBack"/>
                                 <fontDescription key="fontDescription" name="TrebuchetMS-Italic" family="Trebuchet MS" pointSize="20"/>
-                                <state key="normal" title="Low" backgroundImage="ScaleButton.png">
+                                <state key="normal" title="Ready" backgroundImage="ScaleButton.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -2064,9 +2064,16 @@
         <class className="MasterMachineViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MasterMachineViewController.h"/>
             <relationships>
+                <relationship kind="action" name="Cue:"/>
                 <relationship kind="action" name="Host:"/>
+                <relationship kind="action" name="Jam:"/>
+                <relationship kind="action" name="RootChange:"/>
+                <relationship kind="action" name="ScaleChange:"/>
                 <relationship kind="action" name="Score:"/>
+                <relationship kind="action" name="instrumentSelector:"/>
                 <relationship kind="action" name="loopPlay:"/>
+                <relationship kind="action" name="loopSelector:"/>
+                <relationship kind="action" name="scoreSelector:"/>
                 <relationship kind="outlet" name="Host" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="InstrumentA" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="InstrumentB" candidateClass="UIButton"/>

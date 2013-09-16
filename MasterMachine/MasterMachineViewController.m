@@ -143,6 +143,7 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated {
+    NSLog(@"viewDidAppear");
     [super viewDidAppear:NO];
     [self viewSetup];
 }
@@ -710,6 +711,7 @@ static void Slide (CGRect Rect, CGPoint currentPoint, UIImageView *ImageView) {
 }
 
 - (void) netServiceBrowser:(NSNetServiceBrowser*)serviceBrowser didFindService:(NSNetService *)service moreComing:(BOOL)moreComing {
+    NSLog(@"didFindService.... %@", service.name);
     DSLog(@"service name: %@", service.name);
     DSLog(@"service hostName: %@", service.hostName);
     DSLog(@"service accessLabel: %@", service.accessibilityLabel);
@@ -717,6 +719,7 @@ static void Slide (CGRect Rect, CGPoint currentPoint, UIImageView *ImageView) {
 }
 
 - (void) netServiceBrowser:(NSNetServiceBrowser*)serviceBrowser didRemoveService:(NSNetService *)service moreComing:(BOOL)moreComing {
+    NSLog(@"didRemoveService.... %@", service.name);
     MIDINetworkHost *host = [MIDINetworkHost hostWithName:[service name] netService:service];
     MIDINetworkConnection *connection = [MIDINetworkConnection connectionWithHost:host];
     if (connection) {
