@@ -180,7 +180,7 @@
     if (_OverallScorePicker == nil) {
         _OverallScorePicker = [[PickViewController alloc] initWithStyle:UITableViewStylePlain];
         _OverallScorePicker.delegate = self;
-        _ScoreArray = [NSArray arrayWithObjects:@"100", @"95", @"90", @"85", @"80", @"75", @"70", nil];
+        _ScoreArray = [NSMutableArray arrayWithObjects:@"100", @"95", @"90", @"85", @"80", @"75", @"70", nil];
         [_OverallScorePicker passArray:_ScoreArray];
         _OverallScorePopOver = [[UIPopoverController alloc] initWithContentViewController:_OverallScorePicker];
         _OverallScorePopOver.popoverContentSize = CGSizeMake(100, 200);
@@ -195,7 +195,7 @@
     if (_InstrumentPicker == nil) {
         _InstrumentPicker = [[PickViewController alloc] initWithStyle:UITableViewStylePlain];
         _InstrumentPicker.delegate = self;
-        _InstrumentArray = [NSArray arrayWithObjects:@"Trombone", @"SteelGuitar", @"Guitar", @"Ensemble", @"Piano", @"Vibraphone", nil];
+        _InstrumentArray = [NSMutableArray arrayWithObjects:@"Trombone", @"SteelGuitar", @"Guitar", @"Ensemble", @"Piano", @"Vibraphone", nil];
         [_InstrumentPicker passArray:_InstrumentArray];
         _InstrumentPopOver = [[UIPopoverController alloc] initWithContentViewController:_InstrumentPicker];
         _InstrumentPopOver.popoverContentSize = CGSizeMake(200, 200);
