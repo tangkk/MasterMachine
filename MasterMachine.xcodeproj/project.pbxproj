@@ -46,8 +46,8 @@
 		90ADB13E17C20A2F00463306 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 90ADB13D17C20A2F00463306 /* Default-568h@2x.png */; };
 		90ADB14117C20A2F00463306 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 90ADB13F17C20A2F00463306 /* MainStoryboard.storyboard */; };
 		90ADB14417C20A2F00463306 /* MasterMachineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90ADB14317C20A2F00463306 /* MasterMachineViewController.m */; };
-		90E75FF417D767AC00BE3DCE /* MasterMachine@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 90E75FF317D767AC00BE3DCE /* MasterMachine@2x.png */; };
-		90E75FF617D767B300BE3DCE /* MasterMachine.png in Resources */ = {isa = PBXBuildFile; fileRef = 90E75FF517D767B300BE3DCE /* MasterMachine.png */; };
+		90D5A13A1820AADB006C018E /* WIJAM-MASTER@144.png in Resources */ = {isa = PBXBuildFile; fileRef = 90D5A1381820AADB006C018E /* WIJAM-MASTER@144.png */; };
+		90D5A13B1820AADB006C018E /* WIJAM-MASTER@152.png in Resources */ = {isa = PBXBuildFile; fileRef = 90D5A1391820AADB006C018E /* WIJAM-MASTER@152.png */; };
 		90F08AAE17C317E200A53704 /* Circle2.png in Resources */ = {isa = PBXBuildFile; fileRef = 90F08AAD17C317E200A53704 /* Circle2.png */; };
 /* End PBXBuildFile section */
 
@@ -95,7 +95,7 @@
 		9080F44817CB0BEF00B72DD7 /* VirtualInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VirtualInstrument.m; sourceTree = "<group>"; };
 		9080F52B17C21D1700A37E26 /* ScaleButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ScaleButton.png; sourceTree = "<group>"; };
 		9080F52D17C21D8000A37E26 /* Circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Circle.png; sourceTree = "<group>"; };
-		90ADB12417C20A2E00463306 /* MasterMachine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MasterMachine.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		90ADB12417C20A2E00463306 /* WIJAM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WIJAM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		90ADB12717C20A2E00463306 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		90ADB12917C20A2E00463306 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		90ADB12B17C20A2E00463306 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -111,8 +111,8 @@
 		90ADB14017C20A2F00463306 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		90ADB14217C20A2F00463306 /* MasterMachineViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MasterMachineViewController.h; sourceTree = "<group>"; };
 		90ADB14317C20A2F00463306 /* MasterMachineViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MasterMachineViewController.m; sourceTree = "<group>"; };
-		90E75FF317D767AC00BE3DCE /* MasterMachine@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MasterMachine@2x.png"; sourceTree = "<group>"; };
-		90E75FF517D767B300BE3DCE /* MasterMachine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MasterMachine.png; sourceTree = "<group>"; };
+		90D5A1381820AADB006C018E /* WIJAM-MASTER@144.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "WIJAM-MASTER@144.png"; sourceTree = "<group>"; };
+		90D5A1391820AADB006C018E /* WIJAM-MASTER@152.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "WIJAM-MASTER@152.png"; sourceTree = "<group>"; };
 		90F08AAD17C317E200A53704 /* Circle2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Circle2.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -152,8 +152,6 @@
 		90ADB11B17C20A2E00463306 = {
 			isa = PBXGroup;
 			children = (
-				90E75FF517D767B300BE3DCE /* MasterMachine.png */,
-				90E75FF317D767AC00BE3DCE /* MasterMachine@2x.png */,
 				902DF2C317CC857400A88965 /* Ensemble.aupreset */,
 				902DF2C417CC857400A88965 /* Guitar.aupreset */,
 				902DF2C617CC857400A88965 /* Piano.aupreset */,
@@ -171,7 +169,7 @@
 		90ADB12517C20A2E00463306 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				90ADB12417C20A2E00463306 /* MasterMachine.app */,
+				90ADB12417C20A2E00463306 /* WIJAM.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -224,6 +222,8 @@
 		90ADB12E17C20A2F00463306 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				90D5A1381820AADB006C018E /* WIJAM-MASTER@144.png */,
+				90D5A1391820AADB006C018E /* WIJAM-MASTER@152.png */,
 				90458D8317CDA0A500355405 /* ScaleButtonRed.png */,
 				9034291317C47C370008032B /* Go.png */,
 				903ACC4D17C33020002FA59B /* Slider.png */,
@@ -259,7 +259,7 @@
 			);
 			name = MasterMachine;
 			productName = MasterMachine;
-			productReference = 90ADB12417C20A2E00463306 /* MasterMachine.app */;
+			productReference = 90ADB12417C20A2E00463306 /* WIJAM.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -311,10 +311,10 @@
 				902DF2CE17CC857400A88965 /* SteelGuitar.aupreset in Resources */,
 				902DF2CF17CC857400A88965 /* Trombone.aupreset in Resources */,
 				902DF2D017CC857400A88965 /* Vibraphone.aupreset in Resources */,
+				90D5A13A1820AADB006C018E /* WIJAM-MASTER@144.png in Resources */,
 				902DF2D217CC86C300A88965 /* Sounds in Resources */,
+				90D5A13B1820AADB006C018E /* WIJAM-MASTER@152.png in Resources */,
 				90458D8417CDA0A500355405 /* ScaleButtonRed.png in Resources */,
-				90E75FF417D767AC00BE3DCE /* MasterMachine@2x.png in Resources */,
-				90E75FF617D767B300BE3DCE /* MasterMachine.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -432,7 +432,7 @@
 				GCC_PREFIX_HEADER = "MasterMachine/MasterMachine-Prefix.pch";
 				INFOPLIST_FILE = "MasterMachine/MasterMachine-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = WIJAM;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -444,7 +444,7 @@
 				GCC_PREFIX_HEADER = "MasterMachine/MasterMachine-Prefix.pch";
 				INFOPLIST_FILE = "MasterMachine/MasterMachine-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = WIJAM;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
